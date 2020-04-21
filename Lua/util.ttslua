@@ -1,0 +1,835 @@
+--Player 1 Functions
+function fBC1_Reveal()
+  fMoveCard(ID1_ZONE_DECK, POS1_CHECK, ROT1_CHECK, true, true, true)
+  fBC1_ShowRevealButtons()
+end
+
+
+function fBC1_Reveal2Stock()
+  local zone = getObjectFromGUID(ID1_ZONE_CHECK)
+  fMoveCard(ID1_ZONE_CHECK, POS1_STOCK, ROT1_STOCK, false, false, true)
+  Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+end
+
+
+function fBC1_Reveal2Hand()
+  local zone = getObjectFromGUID(ID1_ZONE_CHECK)
+  fMoveCard(ID1_ZONE_CHECK, POS1_HAND, ROT1_HAND, false, false, true)
+  Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+end
+
+
+function fBC1_Reveal2Top()
+  local zone = getObjectFromGUID(ID1_ZONE_CHECK)
+  fMoveCard(ID1_ZONE_CHECK, POS1_DECKT, ROT1_DECKT, false, false, true)
+  Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+end
+
+
+function fBC1_Reveal2Clock()
+  local zone = getObjectFromGUID(ID1_ZONE_CLOCK)
+  local cnt = fCountCardZone(zone)
+  if cnt >= 0 and cnt < 7 then
+    fMoveCard(ID1_ZONE_CHECK, { - 5.3 + XXX + 1.53 * cnt, 2.07, - 10.2}, {0, 180, 5.6}, false, false, true)
+  end
+  zone = getObjectFromGUID(ID1_ZONE_CHECK)
+  Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+end
+
+
+function fBC1_Look()
+  fMoveCard(ID1_ZONE_DECK, POS1_HAND2, ROT1_HAND2, true, false, true)
+  fBC1_ShowLookButtons()
+end
+
+
+function fBC1_Look2Hand()
+  local zone = getObjectFromGUID(ID1_ZONE_HAND2)
+  fMoveCard(ID1_ZONE_HAND2, POS1_HAND, ROT1_HAND, true, false, true)
+  Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+end
+
+
+function fBC1_Look2Top()
+  local zone = getObjectFromGUID(ID1_ZONE_HAND2)
+  fMoveCard(ID1_ZONE_HAND2, POS1_DECKT, ROT1_DECKT, true, false, true)
+  Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+end
+
+
+function fBC1_Look2DeckD()
+  local zone = getObjectFromGUID(ID1_ZONE_HAND2)
+  fMoveCard(ID1_ZONE_HAND2, POS1_DECKD, ROT1_DECKD, true, false, true)
+  Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+end
+
+
+function fBC1_All2Room()
+  fMoveCard(ID1_ZONE_CHECK, POS1_ROOM, ROT1_ROOM, false, false, false)
+  fMoveCard(ID1_ZONE_HAND2, POS1_ROOM, ROT1_ROOM, true, false, false)
+  fBC_RemoveTempButtons()
+end
+
+
+function fBC1_Stock()
+  fMoveCard(ID1_ZONE_STOCK, POS1_ROOM, ROT1_ROOM, true, true, true)
+end
+
+
+function fBC1_BotStock()
+  fMoveCard(ID1_ZONE_STOCK, POS1_ROOM, ROT1_ROOM, false, true, true)
+end
+
+
+function fBC1_LevelUp()
+  fMoveCard(ID1_ZONE_CLOCK, POS1_ROOM, ROT1_ROOM, true, true, false)
+end
+
+
+function fBC1_Refresh()
+  fMoveCard(ID1_ZONE_ROOM, POS1_DECK, ROT1_DECK, true, true, false)
+  fMoveCard(ID1_ZONE_DECK, POS1_DECK, ROT1_DECK, true, true, false)
+  Wait.time(function() fShuffleCard(ID1_ZONE_DECK) end, 0.8)
+end
+
+
+function fBC1_TopToClock()
+  local zone = getObjectFromGUID(ID1_ZONE_CLOCK)
+  local cnt = fCountCardZone(zone)
+  if cnt >= 0 and cnt < 7 then
+    fMoveCard(ID1_ZONE_DECK, { - 5.3 + XXX + 1.53 * cnt, 2.07, - 10.2}, {0, 180, 5.6}, false, true, true)
+  end
+end
+
+
+function fBC1_SearchDeck()
+  -- TODO
+  -- self.UI.show(ID1_ZONE_DECK)
+  -- local zone = getObjectFromGUID(ID1_ZONE_DECK)
+  -- local deck = zone.getObjects()
+  -- deck[2].show()
+end
+
+
+function fBC1_MillTop()
+  fMoveCard(ID1_ZONE_DECK, POS1_ROOM, ROT1_ROOM, true, true, true)
+end
+
+
+function fBC1_MillBottom()
+  fMoveCard(ID1_ZONE_DECK, POS1_ROOM, ROT1_ROOM, false, true, true)
+end
+
+
+--Player 2 Functions
+function fBC2_Reveal()
+  fMoveCard(ID2_ZONE_DECK, POS2_CHECK, ROT2_CHECK, true, true, true)
+  fBC2_ShowRevealButtons()
+end
+
+
+function fBC2_Reveal2Stock()
+  local zone = getObjectFromGUID(ID2_ZONE_CHECK)
+  fMoveCard(ID2_ZONE_CHECK, POS2_STOCK, ROT2_STOCK, false, true, true)
+  Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+end
+
+
+function fBC2_Reveal2Hand()
+  local zone = getObjectFromGUID(ID2_ZONE_CHECK)
+  fMoveCard(ID2_ZONE_CHECK, POS2_HAND, ROT2_HAND, false, false, true)
+  Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+end
+
+
+function fBC2_Reveal2Top()
+  local zone = getObjectFromGUID(ID2_ZONE_CHECK)
+  fMoveCard(ID2_ZONE_CHECK, POS2_DECKT, ROT2_DECKT, false, false, true)
+  Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+end
+
+
+function fBC2_Reveal2Clock()
+  local zone = getObjectFromGUID(ID2_ZONE_CLOCK)
+  local cnt = fCountCardZone(zone)
+  if cnt >= 0 and cnt < 7 then
+    fMoveCard(ID2_ZONE_CHECK, {5.3 + XXX - 1.53 * cnt, 2.07, 10.2}, {0, 0, 5.6}, false, false, true)
+  end
+  zone = getObjectFromGUID(ID2_ZONE_CHECK)
+  Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+end
+
+
+function fBC2_Look()
+  fMoveCard(ID2_ZONE_DECK, POS2_HAND2, ROT2_HAND2, true, true, true)
+  fBC2_ShowLookButtons()
+end
+
+
+function fBC2_Look2Hand()
+  local zone = getObjectFromGUID(ID2_ZONE_HAND2)
+  fMoveCard(ID2_ZONE_HAND2, POS2_HAND, ROT2_HAND, true, false, true)
+  Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+end
+
+function fBC2_Look2Top()
+  local zone = getObjectFromGUID(ID2_ZONE_HAND2)
+  fMoveCard(ID2_ZONE_HAND2, POS2_DECKT, ROT2_DECKT, true, false, true)
+  Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+end
+
+
+function fBC2_Look2DeckD()
+  local zone = getObjectFromGUID(ID1_ZONE_HAND2)
+  fMoveCard(ID2_ZONE_HAND2, POS2_DECKD, ROT2_DECKD, true, false, true)
+  Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+end
+
+
+function fBC2_All2Room()
+  fMoveCard(ID2_ZONE_CHECK, POS2_ROOM, ROT2_ROOM, false, true, false)
+  fMoveCard(ID2_ZONE_HAND2, POS2_ROOM, ROT2_ROOM, true, false, false)
+  fBC_RemoveTempButtons()
+end
+
+
+function fBC2_Stock()
+  fMoveCard(ID2_ZONE_STOCK, POS2_ROOM, ROT2_ROOM, true, true, true)
+end
+
+
+function fBC2_BotStock()
+  fMoveCard(ID2_ZONE_STOCK, POS2_ROOM, ROT2_ROOM, false, true, true)
+end
+
+
+function fBC2_LevelUp()
+  fMoveCard(ID2_ZONE_CLOCK, POS2_ROOM, ROT2_ROOM, true, true, false)
+end
+
+
+function fBC2_Refresh()
+  fMoveCard(ID2_ZONE_ROOM, POS2_DECK, ROT2_DECK, true, true, false)
+  fMoveCard(ID2_ZONE_DECK, POS2_DECK, ROT2_DECK, true, true, false)
+  Wait.time(function() fShuffleCard(ID2_ZONE_DECK) end, 0.8)
+end
+
+
+function fBC2_TopToClock()
+  local zone = getObjectFromGUID(ID2_ZONE_CLOCK)
+  local cnt = fCountCardZone(zone)
+  if cnt >= 0 and cnt < 7 then
+    fMoveCard(ID2_ZONE_DECK, {5.3 + XXX - 1.53 * cnt, 2.07, 10.2}, {0, 0, 5.6}, false, true, true)
+  end
+end
+
+
+function fBC2_SearchDeck()
+  -- TODO
+  -- self.UI.show(ID1_ZONE_DECK)
+  -- local zone = getObjectFromGUID(ID1_ZONE_DECK)
+  -- local deck = zone.getObjects()
+  -- deck[2].show()
+end
+
+
+function fBC2_MillTop()
+  fMoveCard(ID2_ZONE_DECK, POS2_ROOM, ROT2_ROOM, true, true, true)
+end
+
+
+function fBC2_MillBottom()
+  fMoveCard(ID2_ZONE_DECK, POS2_ROOM, ROT2_ROOM, false, true, true)
+end
+
+--General Functions
+function fMoveCard(id_zone, pos, rot, istop, issmooth, issingle)
+  local zone = getObjectFromGUID(id_zone)
+  local zoneObj = zone.getObjects()
+
+  if issingle then
+    i = #zoneObj
+    if zoneObj[i].tag == 'Deck' then
+      takeParams = {
+        position = pos,
+        rotation = rot,
+        top = istop,
+        smooth = issmooth,
+      }
+      zoneObj[i].takeObject(takeParams)
+    elseif zoneObj[i].tag == 'Card' then
+      if issmooth then
+        zoneObj[i].setPositionSmooth(pos, false, false)
+        zoneObj[i].setRotationSmooth(rot, false, false)
+      else
+        zoneObj[i].setPosition(pos)
+        zoneObj[i].setRotation(rot)
+      end
+    end
+  else
+    for i = #zoneObj, 1, - 1 do
+      if zoneObj[i].tag == 'Deck' or zoneObj[i].tag == 'Card' then
+        if issmooth then
+          zoneObj[i].setPositionSmooth(pos, false, true)
+          zoneObj[i].setRotationSmooth(rot, false, true)
+        else
+          zoneObj[i].setPosition(pos)
+          zoneObj[i].setRotation(rot)
+        end
+      end
+    end
+  end
+end
+
+
+function fShuffleCard(id_zone)
+  local zone = getObjectFromGUID(id_zone)
+  local zoneObj = zone.getObjects()
+
+  for i = #zoneObj, 1, - 1 do
+    if zoneObj[i].tag == 'Deck' then
+      zoneObj[i].shuffle()
+    end
+  end
+end
+
+function fCountCardObject(obj)
+  local cnt = 0
+
+  if obj.tag == 'Deck' then
+    cnt = #obj.getObjects()
+  elseif obj.tag == 'Card' then
+    cnt = 1
+  end
+  return cnt
+end
+
+function fCountCardZone(zone)
+  local zoneObj = zone.getObjects()
+  local cnt = 0
+
+  for i = #zoneObj, 1, - 1 do
+    cnt = cnt + fCountCardObject(zoneObj[i])
+  end
+  return cnt
+end
+
+function fCountCardEvent(zone, obj, op)
+  --if obj.tag == 'Deck' or obj.tag == 'Card' then
+  local cnt = fCountCardZone(zone) + op * fCountCardObject(obj)
+  if zone.getGUID() == ID1_ZONE_DECK then
+    local text = getObjectFromGUID(ID1_TEXT_DECK)
+    text.TextTool.setValue(cnt..'')
+  elseif zone.getGUID() == ID1_ZONE_HAND then
+    local text = getObjectFromGUID(ID1_TEXT_HAND)
+    text.TextTool.setValue(cnt..'')
+  elseif zone.getGUID() == ID1_ZONE_STOCK then
+    local text = getObjectFromGUID(ID1_TEXT_STOCK)
+    text.TextTool.setValue(cnt..'')
+  elseif zone.getGUID() == ID1_ZONE_LEVEL then
+    local cnt1 = fCountCardZone(getObjectFromGUID(ID1_ZONE_CLOCK))
+    local text = getObjectFromGUID(ID1_TEXT_LEVEL)
+    text.TextTool.setValue(cnt..'-'..cnt1)
+  elseif zone.getGUID() == ID1_ZONE_CLOCK then
+    local cnt1 = fCountCardZone(getObjectFromGUID(ID1_ZONE_LEVEL))
+    local text = getObjectFromGUID(ID1_TEXT_LEVEL)
+    text.TextTool.setValue(cnt1..'-'..cnt)
+  elseif zone.getGUID() == ID2_ZONE_DECK then
+    local text = getObjectFromGUID(ID2_TEXT_DECK)
+    text.TextTool.setValue(cnt..'')
+  elseif zone.getGUID() == ID2_ZONE_HAND then
+    local text = getObjectFromGUID(ID2_TEXT_HAND)
+    text.TextTool.setValue(cnt..'')
+  elseif zone.getGUID() == ID2_ZONE_STOCK then
+    local text = getObjectFromGUID(ID2_TEXT_STOCK)
+    text.TextTool.setValue(cnt..'')
+  elseif zone.getGUID() == ID2_ZONE_LEVEL then
+    local cnt1 = fCountCardZone(getObjectFromGUID(ID2_ZONE_CLOCK))
+    local text = getObjectFromGUID(ID2_TEXT_LEVEL)
+    text.TextTool.setValue(cnt..'-'..cnt1)
+  elseif zone.getGUID() == ID2_ZONE_CLOCK then
+    local cnt1 = fCountCardZone(getObjectFromGUID(ID2_ZONE_LEVEL))
+    local text = getObjectFromGUID(ID2_TEXT_LEVEL)
+    text.TextTool.setValue(cnt1..'-'..cnt)
+  end
+  --end
+end
+
+function isFaceDown(object)
+  if (object.getRotation()[3] > 179.9 and object.getRotation()[3] < 181.1) then
+    return true
+  else
+    return false
+  end
+end
+
+function fBC_NextStep()
+  if CURRENT_PHASE == "ATTACK_2" then
+    fBC2_AttackDeclarationStep()
+  elseif CURRENT_PHASE == "ATKDECL_2" then
+    fBC2_TriggerStep()
+  elseif CURRENT_PHASE == "TRIGGER_2" then
+    fBC2_CounterStep()
+  elseif CURRENT_PHASE == "COUNTER_2" then
+    fBC2_DamageStep()
+  elseif CURRENT_PHASE == "DAMAGE_2" then
+    fBC2_BattleStep()
+  elseif CURRENT_PHASE == "BATTLE_2" then
+    fBC2_EncoreStep()
+  elseif CURRENT_PHASE == "ATTACK_1" then
+    fBC1_AttackDeclarationStep()
+  elseif CURRENT_PHASE == "ATKDECL_1" then
+    fBC1_TriggerStep()
+  elseif CURRENT_PHASE == "TRIGGER_1" then
+    fBC1_CounterStep()
+  elseif CURRENT_PHASE == "COUNTER_1" then
+    fBC1_DamageStep()
+  elseif CURRENT_PHASE == "DAMAGE_1" then
+    fBC1_BattleStep()
+  elseif CURRENT_PHASE == "BATTLE_1" then
+    fBC1_EncoreStep()
+  end
+end
+
+function fBC_NextPhase()
+  if CURRENT_PHASE == "START_2" then
+    fBC2_StandPhase()
+  elseif CURRENT_PHASE == "STAND_2" then
+    fBC2_DrawPhase()
+  elseif CURRENT_PHASE == "DRAW_2" then
+    fBC2_ClockPhase()
+  elseif CURRENT_PHASE == "CLOCK_2" then
+    fBC2_MainPhase()
+  elseif CURRENT_PHASE == "MAIN_2" then
+    fBC2_ClimaxPhase()
+  elseif CURRENT_PHASE == "CLIMAX_2" then
+    fBC2_AttackPhase()
+  elseif CURRENT_PHASE == "ATTACK_2" then
+    fBC2_EncoreStep()
+  elseif CURRENT_PHASE == "ATKDECL_2" then
+    fBC2_EncoreStep()
+  elseif CURRENT_PHASE == "TRIGGER_2" then
+    fBC2_EncoreStep()
+  elseif CURRENT_PHASE == "COUNTER_2" then
+    fBC2_EncoreStep()
+  elseif CURRENT_PHASE == "DAMAGE_2" then
+    fBC2_EncoreStep()
+  elseif CURRENT_PHASE == "BATTLE_2" then
+    fBC2_EncoreStep()
+  elseif CURRENT_PHASE == "ENCORE_2" then
+    fBC2_EndPhase()
+  elseif CURRENT_PHASE == "END_2" then
+    fBC1_StandPhase()
+  elseif CURRENT_PHASE == "START_1" then
+    fBC1_StandPhase()
+  elseif CURRENT_PHASE == "STAND_1" then
+    fBC1_DrawPhase()
+  elseif CURRENT_PHASE == "DRAW_1" then
+    fBC1_ClockPhase()
+  elseif CURRENT_PHASE == "CLOCK_1" then
+    fBC1_MainPhase()
+  elseif CURRENT_PHASE == "MAIN_1" then
+    fBC1_ClimaxPhase()
+  elseif CURRENT_PHASE == "CLIMAX_1" then
+    fBC1_AttackPhase()
+  elseif CURRENT_PHASE == "ATTACK_1" then
+    fBC1_EncoreStep()
+  elseif CURRENT_PHASE == "ATKDECL_1" then
+    fBC1_EncoreStep()
+  elseif CURRENT_PHASE == "TRIGGER_1" then
+    fBC1_EncoreStep()
+  elseif CURRENT_PHASE == "COUNTER_1" then
+    fBC1_EncoreStep()
+  elseif CURRENT_PHASE == "DAMAGE_1" then
+    fBC1_EncoreStep()
+  elseif CURRENT_PHASE == "BATTLE_1" then
+    fBC1_EncoreStep()
+  elseif CURRENT_PHASE == "ENCORE_1" then
+    fBC1_EndPhase()
+  elseif CURRENT_PHASE == "END_1" then
+    fBC2_StandPhase()
+  end
+end
+
+
+function fBC_ReversedToWR()
+  fBC1_ReversedToWR()
+  fBC2_ReversedToWR()
+  fBC_NextPhase()
+end
+
+
+-- Player 2 Phase Functions
+function fBC2_Mulligan()
+  local cnt = fCountCardZone(getObjectFromGUID(ID2_ZONE_ROOM))
+  for i = cnt, 1, - 1 do
+    fMoveCard(ID2_ZONE_DECK, POS2_HAND, ROT2_HAND, true, true, true)
+  end
+end
+
+
+function fBC2_StandAll()
+  local frontRow = getObjectFromGUID(ID2_ZONE_FRONTROW)
+  local frontRowObjects = frontRow.getObjects()
+  local backRow = getObjectFromGUID(ID2_ZONE_BACKROW)
+  local backRowObjects = backRow.getObjects()
+  for i = #frontRowObjects, 1, - 1 do
+    if (frontRowObjects[i].tag == 'Card' or frontRowObjects[i].tag == 'Deck') then
+      if (not isFaceDown(frontRowObjects[i])) then
+        frontRowObjects[i].setRotation(pB2_ROTATION)
+      end
+    end
+  end
+  for i = #backRowObjects, 1, - 1 do
+
+    if (backRowObjects[i].tag == 'Card' or backRowObjects[i].tag == 'Deck') then
+      if (not isFaceDown(backRowObjects[i])) then
+        backRowObjects[i].setRotation(pB2_ROTATION)
+      end
+    end
+  end
+  fBC_NextPhase()
+end
+
+
+function fBC2_Draw()
+  -- Only use this for Draw Phase
+  fMoveCard(ID2_ZONE_DECK, POS2_HAND, ROT2_HAND, true, true, true)
+  fBC_NextPhase()
+end
+
+
+function fBC2_DrawTwo()
+  -- Only use this for ClockPhase Draw
+  fMoveCard(ID2_ZONE_DECK, POS2_HAND, ROT2_HAND, true, true, true)
+  fMoveCard(ID2_ZONE_DECK, POS2_HAND, ROT2_HAND, true, true, true)
+  fBC_NextPhase()
+end
+
+
+function fBC2_DeclareFrontal()
+  broadcastToAll("Frontal Attack", {r = 1, g = 0, b = 0})
+  fBC_NextPhase()
+end
+
+function fBC2_DeclareSide()
+  broadcastToAll("Side Attack", {r = 1, g = 0, b = 0})
+  fBC_NextPhase()
+end
+
+function fBC2_DeclareDirect()
+  broadcastToAll("Direct Attack", {r = 1, g = 0, b = 0})
+  fBC_NextPhase()
+end
+
+
+function fBC2_BlindStock()
+  fMoveCard(ID2_ZONE_DECK, POS2_STOCK, ROT2_STOCK, true, true, true)
+end
+
+
+function fBC2_NoCounters()
+  broadcastToAll("No Counters", {r = 1, g = 0, b = 0})
+  fBC_NextPhase()
+end
+
+
+function fBC2_ReversedToWR()
+  local frontRow = getObjectFromGUID(ID2_ZONE_FRONTROW)
+  local frontRowObjects = frontRow.getObjects()
+  local backRow = getObjectFromGUID(ID2_ZONE_BACKROW)
+  local backRowObjects = backRow.getObjects()
+  for i = #frontRowObjects, 1, - 1 do
+    local rotationValue = frontRowObjects[i].getRotation()
+    if (not isFaceDown(frontRowObjects[i])) then
+      if (frontRowObjects[i].tag == 'Card' or frontRowObjects[i].tag == 'Deck') then
+        if (rotationValue[2] < 180.1) and (rotationValue[2] > 179.9) then
+          frontRowObjects[i].setPositionSmooth(POS2_ROOM, false, false)
+          frontRowObjects[i].setRotationSmooth(ROT2_ROOM, false, false)
+        end
+      end
+    end
+  end
+  for i = #backRowObjects, 1, - 1 do
+    local rotationValue = backRowObjects[i].getRotation()
+    if (not isFaceDown(backRowObjects[i])) then
+      if (backRowObjects[i].tag == 'Card' or backRowObjects[i].tag == 'Deck') then
+        if (rotationValue[2] < 180.1) and (rotationValue[2] > 179.9) then
+          backRowObjects[i].setPositionSmooth(POS2_ROOM, false, false)
+          backRowObjects[i].setRotationSmooth(ROT2_ROOM, false, false)
+        end
+      end
+    end
+  end
+end
+
+
+function fBC2_ClimaxToWR()
+  fMoveCard(ID2_ZONE_CLIMAX, POS2_ROOM2, ROT2_ROOM, true, true, true)
+  fBC_NextPhase()
+end
+
+
+--Player 1 Phase Functions
+function fBC1_Mulligan()
+  local cnt = fCountCardZone(getObjectFromGUID(ID1_ZONE_ROOM))
+  for i = cnt, 1, - 1 do
+    fMoveCard(ID1_ZONE_DECK, POS1_HAND, ROT1_HAND, true, true, true)
+  end
+end
+
+
+function fBC1_StandAll()
+  local frontRow = getObjectFromGUID(ID1_ZONE_FRONTROW)
+  local frontRowObjects = frontRow.getObjects()
+  local backRow = getObjectFromGUID(ID1_ZONE_BACKROW)
+  local backRowObjects = backRow.getObjects()
+  for i = #frontRowObjects, 1, - 1 do
+    if (not isFaceDown(frontRowObjects[i])) then
+      if (frontRowObjects[i].tag == 'Card' or frontRowObjects[i].tag == 'Deck') then
+        frontRowObjects[i].setRotation(pB1_ROTATION)
+      end
+    end
+  end
+  for i = #backRowObjects, 1, - 1 do
+    if (not isFaceDown(backRowObjects[i])) then
+      if (backRowObjects[i].tag == 'Card' or backRowObjects[i].tag == 'Deck') then
+        backRowObjects[i].setRotation(pB1_ROTATION)
+      end
+    end
+  end
+  fBC_NextPhase()
+end
+
+
+function fBC1_Draw()
+  --Only use this for Draw Phase
+  fMoveCard(ID1_ZONE_DECK, POS1_HAND, ROT1_HAND, true, true, true)
+  fBC_NextPhase()
+end
+
+
+function fBC1_DrawTwo()
+  -- Only use this for ClockPhase Draw
+  fMoveCard(ID1_ZONE_DECK, POS1_HAND, ROT1_HAND, true, true, true)
+  fMoveCard(ID1_ZONE_DECK, POS1_HAND, ROT1_HAND, true, true, true)
+  fBC_NextPhase()
+end
+
+
+function fBC1_DeclareFrontal()
+  broadcastToAll("Frontal Attack", {r = 1, g = 1, b = 1})
+  fBC_NextPhase()
+end
+
+
+function fBC1_DeclareSide()
+  broadcastToAll("Side Attack", {r = 1, g = 1, b = 1})
+  fBC_NextPhase()
+end
+
+
+function fBC1_DeclareDirect()
+  broadcastToAll("Direct Attack", {r = 1, g = 1, b = 1})
+  fBC_NextPhase()
+end
+
+
+function fBC1_BlindStock()
+  fMoveCard(ID1_ZONE_DECK, POS1_STOCK, ROT1_STOCK, true, true, true)
+end
+
+
+function fBC1_NoCounters()
+  broadcastToAll("No Counters", {r = 1, g = 1, b = 1})
+  fBC_NextPhase()
+end
+
+
+function fBC1_ReversedToWR()
+  local frontRow = getObjectFromGUID(ID1_ZONE_FRONTROW)
+  local frontRowObjects = frontRow.getObjects()
+  local backRow = getObjectFromGUID(ID1_ZONE_BACKROW)
+  local backRowObjects = backRow.getObjects()
+  for i = #frontRowObjects, 1, - 1 do
+    local rotationValue = frontRowObjects[i].getRotation()
+    if (not isFaceDown(frontRowObjects[i])) then
+      if (frontRowObjects[i].tag == 'Card' or frontRowObjects[i].tag == 'Deck') then
+        if rotationValue[2] < 0.1 then
+          frontRowObjects[i].setPositionSmooth(POS1_ROOM, false, false)
+          frontRowObjects[i].setRotationSmooth(ROT1_ROOM, false, false)
+        end
+      end
+    end
+  end
+  for i = #backRowObjects, 1, - 1 do
+    local rotationValue = backRowObjects[i].getRotation()
+
+    if (not isFaceDown(backRowObjects[i])) then
+      if (backRowObjects[i].tag == 'Card' or backRowObjects[i].tag == 'Deck') then
+        if rotationValue[2] < 0.1 then
+          backRowObjects[i].setPositionSmooth(POS1_ROOM, false, false)
+          backRowObjects[i].setRotationSmooth(ROT1_ROOM, false, false)
+        end
+      end
+    end
+  end
+end
+
+
+function fBC1_ClimaxToWR()
+  fMoveCard(ID1_ZONE_CLIMAX, POS1_ROOM2, ROT1_ROOM, true, true, true)
+  fBC_NextPhase()
+end
+
+-- Button Functions
+function fBC1_ShowLookButtons()
+  fBC_RemoveTempButtons()
+  CCC = getObjectFromGUID(ID_CENTER)
+  CCC.createButton(pB1_Look2Top)
+  CCC.createButton(pB1_Look2DeckD)
+  CCC.createButton(pB1_Look2Hand)
+  CCC.createButton(pB1_Look2Room)
+end
+
+
+function fBC1_ShowRevealButtons()
+  fBC_RemoveTempButtons()
+  CCC = getObjectFromGUID(ID_CENTER)
+  CCC.createButton(pB1_Reveal2Hand)
+  CCC.createButton(pB1_Reveal2Stock)
+  CCC.createButton(pB1_Reveal2Clock)
+  CCC.createButton(pB1_Reveal2Top)
+  CCC.createButton(pB1_All2Room)
+end
+
+
+function fBC1_ShowPhases()
+  CCC = getObjectFromGUID(ID_CENTER)
+  CCC.createButton(pB1_StandPhase)
+  CCC.createButton(pB1_DrawPhase)
+  CCC.createButton(pB1_ClockPhase)
+  CCC.createButton(pB1_MainPhase)
+  CCC.createButton(pB1_ClimaxPhase)
+  CCC.createButton(pB1_AttackPhase)
+  CCC.createButton(pB1_EndPhase)
+end
+
+
+function fBC1_ShowSteps()
+  CCC = getObjectFromGUID(ID_CENTER)
+  CCC.createButton(pB1_AttackDeclStep)
+  CCC.createButton(pB1_TriggerStep)
+  CCC.createButton(pB1_CounterStep)
+  CCC.createButton(pB1_DamageStep)
+  CCC.createButton(pB1_BattleStep)
+  CCC.createButton(pB1_EncoreStep)
+end
+
+
+function fBC2_ShowLookButtons()
+  fBC_RemoveTempButtons()
+  CCC = getObjectFromGUID(ID_CENTER)
+  CCC.createButton(pB2_Look2Top)
+  CCC.createButton(pB2_Look2DeckD)
+  CCC.createButton(pB2_Look2Hand)
+  CCC.createButton(pB2_Look2Room)
+end
+
+
+function fBC2_ShowRevealButtons()
+  fBC_RemoveTempButtons()
+  CCC = getObjectFromGUID(ID_CENTER)
+  CCC.createButton(pB2_Reveal2Hand)
+  CCC.createButton(pB2_Reveal2Stock)
+  CCC.createButton(pB2_Reveal2Clock)
+  CCC.createButton(pB2_Reveal2Top)
+  CCC.createButton(pB2_All2Room)
+end
+
+
+function fBC2_ShowPhases()
+  CCC = getObjectFromGUID(ID_CENTER)
+  CCC.createButton(pB2_StandPhase)
+  CCC.createButton(pB2_DrawPhase)
+  CCC.createButton(pB2_ClockPhase)
+  CCC.createButton(pB2_MainPhase)
+  CCC.createButton(pB2_ClimaxPhase)
+  CCC.createButton(pB2_AttackPhase)
+  CCC.createButton(pB2_EndPhase)
+end
+
+
+function fBC2_ShowSteps()
+  CCC = getObjectFromGUID(ID_CENTER)
+  CCC.createButton(pB2_AttackDeclStep)
+  CCC.createButton(pB2_TriggerStep)
+  CCC.createButton(pB2_CounterStep)
+  CCC.createButton(pB2_DamageStep)
+  CCC.createButton(pB2_BattleStep)
+  CCC.createButton(pB2_EncoreStep)
+end
+
+
+function fBC_ShowStandard()
+  CCC = getObjectFromGUID(ID_CENTER)
+  CCC.createButton(pB1_Stock)
+  CCC.createButton(pB1_BotStock)
+  CCC.createButton(pB2_Stock)
+  CCC.createButton(pB2_BotStock)
+  CCC.createButton(pB1_Refresh)
+  CCC.createButton(pB2_Refresh)
+  CCC.createButton(pB1_LevelUp)
+  CCC.createButton(pB2_LevelUp)
+  CCC.createButton(pB1_RefreshDamage)
+  CCC.createButton(pB1_MillTop)
+  CCC.createButton(pB1_MillBottom)
+  CCC.createButton(pB2_RefreshDamage)
+  CCC.createButton(pB2_MillTop)
+  CCC.createButton(pB2_MillBottom)
+  CCC.createButton(pB1_Look)
+  CCC.createButton(pB2_Look)
+  CCC.createButton(pB1_BlindStock)
+  CCC.createButton(pB2_BlindStock)
+  CCC.createButton(pB1_Reveal)
+  CCC.createButton(pB2_Reveal)
+  CCC.createButton(pB1_NextPhase)
+  CCC.createButton(pB2_NextPhase)
+end
+
+
+function fBC_RemoveButtons()
+  CCC = getObjectFromGUID(ID_CENTER)
+  local buttons = CCC.getButtons()
+  for i = #buttons, 1, - 1 do
+    CCC.removeButton(buttons[i].index)
+  end
+end
+
+
+function fBC_RemoveTempButtons()
+  CCC = getObjectFromGUID(ID_CENTER)
+  local buttons = CCC.getButtons()
+  for i = #buttons, 1, - 1 do
+    if (buttons[i].color == GREY) then
+      CCC.removeButton(buttons[i].index)
+    end
+  end
+end
+
+
+function fBC_CheckRemoveTemp(zone)
+  if (fCountCardZone(zone) == 0) then
+    fBC_RemoveTempButtons()
+  end
+end
+
+
+function fRemoveDice()
+  local objects = getAllObjects()
+  for i = #objects, 1, - 1 do
+    if (objects[i].tag == 'Dice') then
+      destroyObject(objects[i])
+    end
+  end
+end
