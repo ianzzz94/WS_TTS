@@ -1,0 +1,4 @@
+WHITE = {r = 1, g = 1, b = 1}
+RED = {r = 1, g = 0, b = 0}
+GREY = Color(0.7, 0.7, 0.7, 1)
+-- GREYBUTTON = #FFFFFF|White|#C8C8C8|rgba(0.78, 0.78, 0.78, 0.5)

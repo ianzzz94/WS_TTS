@@ -1,0 +1,288 @@
+-- START OF GAME PLAYER 2
+function fBC2_Start()
+  CURRENT_PHASE = "START_2"
+
+  fRemoveDice()
+
+  fShuffleCard(ID1_ZONE_DECK)
+  fMoveCard(ID1_ZONE_DECK, POS1_HAND, ROT1_HAND, true, true, true)
+  fMoveCard(ID1_ZONE_DECK, POS1_HAND, ROT1_HAND, true, true, true)
+  fMoveCard(ID1_ZONE_DECK, POS1_HAND, ROT1_HAND, true, true, true)
+  fMoveCard(ID1_ZONE_DECK, POS1_HAND, ROT1_HAND, true, true, true)
+  fMoveCard(ID1_ZONE_DECK, POS1_HAND, ROT1_HAND, true, true, true)
+
+  fShuffleCard(ID2_ZONE_DECK)
+  fMoveCard(ID2_ZONE_DECK, POS2_HAND, ROT2_HAND, true, true, true)
+  fMoveCard(ID2_ZONE_DECK, POS2_HAND, ROT2_HAND, true, true, true)
+  fMoveCard(ID2_ZONE_DECK, POS2_HAND, ROT2_HAND, true, true, true)
+  fMoveCard(ID2_ZONE_DECK, POS2_HAND, ROT2_HAND, true, true, true)
+  fMoveCard(ID2_ZONE_DECK, POS2_HAND, ROT2_HAND, true, true, true)
+  CCC = getObjectFromGUID(ID_CENTER)
+
+  fBC_RemoveButtons()
+  fBC2_ShowPhases()
+
+  CCC.createButton(pB1_Mulligan)
+  CCC.createButton(pB2_Mulligan)
+
+  CCC.createButton(pB1_Refresh)
+  CCC.createButton(pB2_Refresh)
+  CCC.createButton(pB1_NextPhase)
+  CCC.createButton(pB2_NextPhase)
+end
+
+
+--- STAND PHASE PLAYER 2
+function fBC2_StandPhase()
+  CURRENT_PHASE = "STAND_2"
+
+  broadcastToAll("Stand Phase", {r = 1, g = 0, b = 0})
+  CCC = getObjectFromGUID(ID_CENTER)
+
+  fBC_RemoveButtons()
+
+  fBC2_ShowPhases()
+  fBC_ShowStandard()
+
+  CCC.createButton(pB2_StandAll)
+end
+
+
+--- DRAW PHASE PLAYER 2
+function fBC2_DrawPhase()
+  CURRENT_PHASE = "DRAW_2"
+
+  broadcastToAll("Draw Phase", {r = 1, g = 0, b = 0})
+  CCC = getObjectFromGUID(ID_CENTER)
+
+  fBC_RemoveButtons()
+
+  fBC2_ShowPhases()
+  fBC_ShowStandard()
+
+  CCC.createButton(pB2_Draw)
+end
+
+
+--- CLOCK PHASE PLAYER 2
+function fBC2_ClockPhase()
+  CURRENT_PHASE = "CLOCK_2"
+
+  broadcastToAll("Clock Phase", {r = 1, g = 0, b = 0})
+  CCC = getObjectFromGUID(ID_CENTER)
+
+  fBC_RemoveButtons()
+
+  fBC2_ShowPhases()
+  fBC_ShowStandard()
+
+  CCC.createButton(pB2_DrawTwo)
+end
+
+
+--- MAIN PHASE PLAYER 2
+function fBC2_MainPhase()
+  CURRENT_PHASE = "MAIN_2"
+
+  broadcastToAll("Main Phase", {r = 1, g = 0, b = 0})
+  CCC = getObjectFromGUID(ID_CENTER)
+
+  fBC_RemoveButtons()
+
+  fBC2_ShowPhases()
+  fBC_ShowStandard()
+
+end
+
+
+--- CLIMAX PHASE PLAYER 2
+function fBC2_ClimaxPhase()
+  CURRENT_PHASE = "CLIMAX_2"
+
+  broadcastToAll("Climax Phase", {r = 1, g = 0, b = 0})
+  CCC = getObjectFromGUID(ID_CENTER)
+
+  fBC_RemoveButtons()
+
+  fBC2_ShowPhases()
+  fBC_ShowStandard()
+end
+
+
+--- ATTACK PHASE PLAYER 2
+function fBC2_AttackPhase()
+  CURRENT_PHASE = "ATTACK_2"
+  broadcastToAll("Attack Phase", {r = 1, g = 0, b = 0})
+  CCC = getObjectFromGUID(ID_CENTER)
+
+  fBC_RemoveButtons()
+
+  fBC2_ShowPhases()
+  fBC2_ShowSteps()
+  fBC_ShowStandard()
+
+  CCC.createButton(pB2_Trigger)
+  CCC.createButton(pB2_TriggerToStock)
+  CCC.createButton(pB2_TriggerToHand)
+  CCC.createButton(pB2_BlindStock)
+  CCC.createButton(pB2_NextStep)
+
+  CCC.createButton(pB1_RevealDamage)
+  CCC.createButton(pB1_TakeDamage)
+  CCC.createButton(pB1_Cancel)
+  CCC.createButton(pB1_NextStep)
+end
+
+
+--- ATTACK DECLARATION PLAYER 2
+function fBC2_AttackDeclarationStep()
+  CURRENT_PHASE = "ATKDECL_2"
+
+  broadcastToAll("Attack Declaration Step", {r = 1, g = 0, b = 0})
+  CCC = getObjectFromGUID(ID_CENTER)
+
+  fBC_RemoveButtons()
+
+  fBC2_ShowPhases()
+  fBC2_ShowSteps()
+  fBC_ShowStandard()
+
+  CCC.createButton(pB2_DeclareFrontal)
+  CCC.createButton(pB2_DeclareSide)
+  CCC.createButton(pB2_DeclareDirect)
+  CCC.createButton(pB2_NextStep)
+
+  CCC.createButton(pB1_RevealDamage)
+  CCC.createButton(pB1_TakeDamage)
+  CCC.createButton(pB1_Cancel)
+  CCC.createButton(pB1_NextStep)
+end
+
+
+--- TRIGGER STEP PLAYER 2
+function fBC2_TriggerStep()
+  CURRENT_PHASE = "TRIGGER_2"
+
+  broadcastToAll("Trigger Step", {r = 1, g = 0, b = 0})
+  CCC = getObjectFromGUID(ID_CENTER)
+
+  fBC_RemoveButtons()
+
+  fBC2_ShowPhases()
+  fBC2_ShowSteps()
+  fBC_ShowStandard()
+
+  CCC.createButton(pB2_Trigger)
+  CCC.createButton(pB2_TriggerToStock)
+  CCC.createButton(pB2_TriggerToHand)
+  CCC.createButton(pB2_BlindStock)
+  CCC.createButton(pB2_NextStep)
+
+  CCC.createButton(pB1_RevealDamage)
+  CCC.createButton(pB1_TakeDamage)
+  CCC.createButton(pB1_Cancel)
+  CCC.createButton(pB1_NextStep)
+end
+
+
+--- COUNTER STEP PLAYER 2
+function fBC2_CounterStep()
+  CURRENT_PHASE = "COUNTER_2"
+
+  broadcastToAll("Counter Step", {r = 1, g = 0, b = 0})
+  CCC = getObjectFromGUID(ID_CENTER)
+
+  fBC_RemoveButtons()
+
+  fBC2_ShowPhases()
+  fBC2_ShowSteps()
+  fBC_ShowStandard()
+
+  CCC.createButton(pB2_NextStep)
+
+  CCC.createButton(pB1_NoCounters)
+  CCC.createButton(pB1_RevealDamage)
+  CCC.createButton(pB1_TakeDamage)
+  CCC.createButton(pB1_Cancel)
+  CCC.createButton(pB1_NextStep)
+end
+
+
+--- DAMAGE STEP PLAYER 2
+function fBC2_DamageStep()
+  CURRENT_PHASE = "DAMAGE_2"
+
+  broadcastToAll("Damage Step", {r = 1, g = 0, b = 0})
+  CCC = getObjectFromGUID(ID_CENTER)
+
+  fBC_RemoveButtons()
+
+  fBC2_ShowPhases()
+  fBC2_ShowSteps()
+  fBC_ShowStandard()
+
+  CCC.createButton(pB2_NextStep)
+
+  CCC.createButton(pB1_RevealDamage)
+  CCC.createButton(pB1_TakeDamage)
+  CCC.createButton(pB1_Cancel)
+  CCC.createButton(pB1_NextStep)
+end
+
+
+--- BATTLE STEP PLAYER 2
+function fBC2_BattleStep()
+  CURRENT_PHASE = "BATTLE_2"
+
+  broadcastToAll("Battle Step", {r = 1, g = 0, b = 0})
+  CCC = getObjectFromGUID(ID_CENTER)
+
+  fBC_RemoveButtons()
+
+  fBC2_ShowPhases()
+  fBC2_ShowSteps()
+  fBC_ShowStandard()
+
+  CCC.createButton(pB2_DeclareOtherAttack)
+  CCC.createButton(pB1_RevealDamage)
+  CCC.createButton(pB1_TakeDamage)
+  CCC.createButton(pB1_Cancel)
+end
+
+
+--- ENCORE STEP PLAYER 2
+function fBC2_EncoreStep()
+  CURRENT_PHASE = "ENCORE_2"
+
+  broadcastToAll("Encore Step", {r = 1, g = 0, b = 0})
+  CCC = getObjectFromGUID(ID_CENTER)
+
+  fBC_RemoveButtons()
+  fBC2_ShowPhases()
+  fBC2_ShowSteps()
+  fBC_ShowStandard()
+
+  CCC.createButton(pB1_ReversedToWR)
+  CCC.createButton(pB2_ReversedToWR)
+
+  CCC.createButton(pB1_RevealDamage)
+  CCC.createButton(pB1_TakeDamage)
+  CCC.createButton(pB1_Cancel)
+end
+
+
+--- END PHASE PLAYER 2
+function fBC2_EndPhase()
+  CURRENT_PHASE = "END_2"
+
+  broadcastToAll("End Phase", {r = 1, g = 0, b = 0})
+  CCC = getObjectFromGUID(ID_CENTER)
+
+  fBC_RemoveButtons()
+
+  fBC2_ShowPhases()
+  fBC1_ShowPhases()
+  fBC_ShowStandard()
+
+  CCC.createButton(pB2_ClimaxToWR)
+end
