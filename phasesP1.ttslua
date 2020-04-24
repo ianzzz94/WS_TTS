@@ -2,6 +2,10 @@
 function fBC1_Start()
   CURRENT_PHASE = "START_1"
   STARTING_COLOR = WHITE
+  if not fBC_DeckCheck() then
+    return
+  end
+
   fBC_UpdateTurnCounter(WHITE)
 
   fRemoveDice()

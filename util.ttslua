@@ -981,3 +981,32 @@ function fBC_UpdateTurnCounter(color)
   counter.setValue("Turn \n" .. tostring(TURNCOUNTER))
   counter.TextTool.setFontColor(color)
 end
+
+function fBC_DeckCheck()
+  deck = getObjectFromGUID(ID1_ZONE_DECK).getObjects()
+  deckCheckPassed = true
+  deckFound = false
+  for i = #deck, 1, - 1 do
+    if deck[i].tag == "Deck" or deck[i].tag == "Card" then
+      deckFound = true
+    end
+  end
+  if not deckFound then
+    broadcastToAll("Please put your Deck onto your Deck Zone", WHITE)
+    deckCheckPassed = false
+  end
+
+  deck = getObjectFromGUID(ID2_ZONE_DECK).getObjects()
+  deckFound = false
+  for i = #deck, 1, - 1 do
+    if deck[i].tag == "Deck" or deck[i].tag == "Card" then
+      deckFound = true
+    end
+  end
+  if not deckFound then
+    broadcastToAll("Please put your Deck onto your Deck Zone", RED)
+    deckCheckPassed = false
+  end
+  return deckCheckPassed
+
+end
