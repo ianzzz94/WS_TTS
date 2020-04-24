@@ -5,6 +5,7 @@
 #include tooltips
 #include buttonsP1
 #include buttonsP2
+#include buttonsGlobal
 #include util
 #include phasesP1
 #include phasesP2
@@ -22,12 +23,5 @@ function onObjectLeaveScriptingZone(zone, leave_object)
 end
 
 function onLoad()
-  CCC = getObjectFromGUID(ID_CENTER)
-
-  CCC.createButton(pB1_Start)
-  CCC.createButton(pB2_Start)
-  CCC.createButton(pB1_Second)
-  CCC.createButton(pB2_Second)
-  CCC.createButton(pB1_Skip)
-  CCC.createButton(pB2_Skip)
+  fBC_StartOfGame()
 end

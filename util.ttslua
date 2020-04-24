@@ -459,6 +459,18 @@ function fBC_ReversedToWR()
 end
 
 
+function fBC_StartOfGame()
+  CCC = getObjectFromGUID(ID_CENTER)
+  fBC_RemoveButtons()
+  CCC.createButton(pB1_Start)
+  CCC.createButton(pB2_Start)
+  CCC.createButton(pB1_Second)
+  CCC.createButton(pB2_Second)
+  CCC.createButton(pB1_Skip)
+  CCC.createButton(pB2_Skip)
+end
+
+
 -- Player 2 Phase Functions
 function fBC2_Mulligan()
   local cnt = fCountCardZone(getObjectFromGUID(ID2_ZONE_ROOM))
@@ -860,6 +872,7 @@ end
 
 function fBC_ShowStandard()
   CCC = getObjectFromGUID(ID_CENTER)
+  CCC.createButton(pB_NewGame)
   CCC.createButton(pB1_Stock)
   CCC.createButton(pB1_BotStock)
   CCC.createButton(pB2_Stock)
@@ -888,6 +901,9 @@ end
 function fBC_RemoveButtons()
   CCC = getObjectFromGUID(ID_CENTER)
   local buttons = CCC.getButtons()
+  if not buttons then
+    return
+  end
   for i = #buttons, 1, - 1 do
     CCC.removeButton(buttons[i].index)
   end

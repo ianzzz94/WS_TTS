@@ -1,3 +1,5 @@
+toolTipNewGame = 'Restart the game'
+
 toolTipStart = 'Put your deck in your Deck Zone. \nRoll the die to choose who goes first. \nIf you win, press this button and you start the game.'
 toolTipSecond = 'Put your deck in your Deck Zone. \nRoll the die to choose who goes first. \nIf you lose, press this button and your opponent starts the game.'
 

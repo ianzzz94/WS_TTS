@@ -29,6 +29,8 @@ function fBC1_Start()
   CCC.createButton(pB2_Refresh)
   CCC.createButton(pB1_NextPhase)
   CCC.createButton(pB2_NextPhase)
+
+  CCC.createButton(pB_NewGame)
 end
 
 
