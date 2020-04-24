@@ -1,6 +1,8 @@
 -- START OF GAME PLAYER 2
 function fBC2_Start()
   CURRENT_PHASE = "START_2"
+  STARTING_COLOR = RED
+  fBC_UpdateTurnCounter(RED)
 
   fRemoveDice()
 
