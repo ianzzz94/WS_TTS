@@ -242,7 +242,7 @@ pB2_NextPhase = {
   width = pB_WIDTH,
   height = pB_HEIGHT,
   font_size = pB_FONTSIZE,
-  tooltip = 'Proceed to the next Phase/Step.',
+  tooltip = 'Proceed to the next Phase.',
 }
 pB2_Start = {
   click_function = 'fBC2_Start',
