@@ -130,7 +130,7 @@ end
 
 function fBC2_Reveal2Stock()
   local zone = getObjectFromGUID(ID2_ZONE_CHECK)
-  fMoveCard(ID2_ZONE_CHECK, POS2_STOCK, ROT2_STOCK, false, true, true)
+  fMoveCard(ID2_ZONE_CHECK, POS2_STOCK, ROT2_STOCK, false, false, true)
   Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
 end
 
@@ -509,17 +509,17 @@ end
 
 function fBC2_DeclareFrontal()
   broadcastToAll("Frontal Attack", {r = 1, g = 0, b = 0})
-  fBC_NextPhase()
+  fBC_NextStep()
 end
 
 function fBC2_DeclareSide()
   broadcastToAll("Side Attack", {r = 1, g = 0, b = 0})
-  fBC_NextPhase()
+  fBC_NextStep()
 end
 
 function fBC2_DeclareDirect()
   broadcastToAll("Direct Attack", {r = 1, g = 0, b = 0})
-  fBC_NextPhase()
+  fBC_NextStep()
 end
 
 
@@ -530,7 +530,7 @@ end
 
 function fBC2_NoCounters()
   broadcastToAll("No Counters", {r = 1, g = 0, b = 0})
-  fBC_NextPhase()
+  fBC_NextStep()
 end
 
 
@@ -619,19 +619,19 @@ end
 
 function fBC1_DeclareFrontal()
   broadcastToAll("Frontal Attack", {r = 1, g = 1, b = 1})
-  fBC_NextPhase()
+  fBC_NextStep()
 end
 
 
 function fBC1_DeclareSide()
   broadcastToAll("Side Attack", {r = 1, g = 1, b = 1})
-  fBC_NextPhase()
+  fBC_NextStep()
 end
 
 
 function fBC1_DeclareDirect()
   broadcastToAll("Direct Attack", {r = 1, g = 1, b = 1})
-  fBC_NextPhase()
+  fBC_NextStep()
 end
 
 
@@ -642,7 +642,7 @@ end
 
 function fBC1_NoCounters()
   broadcastToAll("No Counters", {r = 1, g = 1, b = 1})
-  fBC_NextPhase()
+  fBC_NextStep()
 end
 
 
@@ -704,26 +704,69 @@ function fBC1_ShowRevealButtons()
 end
 
 
-function fBC1_ShowPhases()
+function fBC1_ShowPhases(currentPhase)
   CCC = getObjectFromGUID(ID_CENTER)
-  CCC.createButton(pB1_StandPhase)
-  CCC.createButton(pB1_DrawPhase)
-  CCC.createButton(pB1_ClockPhase)
-  CCC.createButton(pB1_MainPhase)
-  CCC.createButton(pB1_ClimaxPhase)
-  CCC.createButton(pB1_AttackPhase)
-  CCC.createButton(pB1_EndPhase)
+  PHASES = {
+    pB1_StandPhase,
+    pB1_DrawPhase,
+    pB1_ClockPhase,
+    pB1_MainPhase,
+    pB1_ClimaxPhase,
+    pB1_AttackPhase,
+    pB1_EndPhase
+  }
+  for i = #PHASES, 1, - 1 do
+    if PHASES[i].label == currentPhase then
+      phase = {
+        click_function = PHASES[i].click_function,
+        label = PHASES[i].label,
+        position = PHASES[i].position,
+        rotation = PHASES[i].rotation,
+        scale = PHASES[i].scale,
+        width = PHASES[i].width,
+        height = PHASES[i].height,
+        font_size = PHASES[i].font_size,
+        tooltip = PHASES[i].tooltip,
+        color = HONEY
+      }
+      CCC.createButton(phase)
+    else
+      CCC.createButton(PHASES[i])
+    end
+  end
 end
 
 
-function fBC1_ShowSteps()
+function fBC1_ShowSteps(currentPhase)
+
   CCC = getObjectFromGUID(ID_CENTER)
-  CCC.createButton(pB1_AttackDeclStep)
-  CCC.createButton(pB1_TriggerStep)
-  CCC.createButton(pB1_CounterStep)
-  CCC.createButton(pB1_DamageStep)
-  CCC.createButton(pB1_BattleStep)
-  CCC.createButton(pB1_EncoreStep)
+  PHASES = {
+    pB1_AttackDeclStep,
+    pB1_TriggerStep,
+    pB1_CounterStep,
+    pB1_DamageStep,
+    pB1_BattleStep,
+    pB1_EncoreStep
+  }
+  for i = #PHASES, 1, - 1 do
+    if PHASES[i].label == currentPhase then
+      phase = {
+        click_function = PHASES[i].click_function,
+        label = PHASES[i].label,
+        position = PHASES[i].position,
+        rotation = PHASES[i].rotation,
+        scale = PHASES[i].scale,
+        width = PHASES[i].width,
+        height = PHASES[i].height,
+        font_size = PHASES[i].font_size,
+        tooltip = PHASES[i].tooltip,
+        color = HONEY
+      }
+      CCC.createButton(phase)
+    else
+      CCC.createButton(PHASES[i])
+    end
+  end
 end
 
 
@@ -748,26 +791,70 @@ function fBC2_ShowRevealButtons()
 end
 
 
-function fBC2_ShowPhases()
+function fBC2_ShowPhases(currentPhase)
+
   CCC = getObjectFromGUID(ID_CENTER)
-  CCC.createButton(pB2_StandPhase)
-  CCC.createButton(pB2_DrawPhase)
-  CCC.createButton(pB2_ClockPhase)
-  CCC.createButton(pB2_MainPhase)
-  CCC.createButton(pB2_ClimaxPhase)
-  CCC.createButton(pB2_AttackPhase)
-  CCC.createButton(pB2_EndPhase)
+  PHASES = {
+    pB2_StandPhase,
+    pB2_DrawPhase,
+    pB2_ClockPhase,
+    pB2_MainPhase,
+    pB2_ClimaxPhase,
+    pB2_AttackPhase,
+    pB2_EndPhase
+  }
+  for i = #PHASES, 1, - 1 do
+    if PHASES[i].label == currentPhase then
+      phase = {
+        click_function = PHASES[i].click_function,
+        label = PHASES[i].label,
+        position = PHASES[i].position,
+        rotation = PHASES[i].rotation,
+        scale = PHASES[i].scale,
+        width = PHASES[i].width,
+        height = PHASES[i].height,
+        font_size = PHASES[i].font_size,
+        tooltip = PHASES[i].tooltip,
+        color = HONEY
+      }
+      CCC.createButton(phase)
+    else
+      CCC.createButton(PHASES[i])
+    end
+  end
 end
 
 
-function fBC2_ShowSteps()
+function fBC2_ShowSteps(currentPhase)
+
   CCC = getObjectFromGUID(ID_CENTER)
-  CCC.createButton(pB2_AttackDeclStep)
-  CCC.createButton(pB2_TriggerStep)
-  CCC.createButton(pB2_CounterStep)
-  CCC.createButton(pB2_DamageStep)
-  CCC.createButton(pB2_BattleStep)
-  CCC.createButton(pB2_EncoreStep)
+  PHASES = {
+    pB2_AttackDeclStep,
+    pB2_TriggerStep,
+    pB2_CounterStep,
+    pB2_DamageStep,
+    pB2_BattleStep,
+    pB2_EncoreStep
+  }
+  for i = #PHASES, 1, - 1 do
+    if PHASES[i].label == currentPhase then
+      phase = {
+        click_function = PHASES[i].click_function,
+        label = PHASES[i].label,
+        position = PHASES[i].position,
+        rotation = PHASES[i].rotation,
+        scale = PHASES[i].scale,
+        width = PHASES[i].width,
+        height = PHASES[i].height,
+        font_size = PHASES[i].font_size,
+        tooltip = PHASES[i].tooltip,
+        color = HONEY
+      }
+      CCC.createButton(phase)
+    else
+      CCC.createButton(PHASES[i])
+    end
+  end
 end
 
 
@@ -830,6 +917,28 @@ function fRemoveDice()
   for i = #objects, 1, - 1 do
     if (objects[i].tag == 'Dice') then
       destroyObject(objects[i])
+    end
+  end
+end
+
+function fBCChangePhaseColor(name)
+  CCC = getObjectFromGUID(ID_CENTER)
+  local buttons = CCC.getButtons()
+  for i = #buttons, 1, - 1 do
+    if buttons[i].label == name then
+      -- CCC.editButton({index = i - 1, color = HONEY})
+    end
+  end
+end
+
+
+function fBCChangePhaseColorByFunc(funcName)
+  CCC = getObjectFromGUID(ID_CENTER)
+  local buttons = CCC.getButtons()
+  for i = #buttons, 1, - 1 do
+    if buttons[i].click_function == funcName then
+      CCC.editButton({index = i - 1, color = HONEY})
+      return
     end
   end
 end

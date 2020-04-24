@@ -35,16 +35,18 @@ end
 --- STAND PHASE PLAYER 1
 function fBC1_StandPhase()
   CURRENT_PHASE = "STAND_1"
+  name = "Stand Phase"
+  broadcastToAll(name, {r = 1, g = 1, b = 1})
 
-  broadcastToAll("Stand Phase", {r = 1, g = 1, b = 1})
   CCC = getObjectFromGUID(ID_CENTER)
 
   fBC_RemoveButtons()
 
-  fBC1_ShowPhases()
+  fBC1_ShowPhases(name)
   fBC_ShowStandard()
 
   CCC.createButton(pB1_StandAll)
+
 end
 
 
@@ -52,44 +54,48 @@ end
 function fBC1_DrawPhase()
   CURRENT_PHASE = "DRAW_1"
 
-  broadcastToAll("Draw Phase", {r = 1, g = 1, b = 1})
+  name = "Draw Phase"
+  broadcastToAll(name, {r = 1, g = 1, b = 1})
   CCC = getObjectFromGUID(ID_CENTER)
 
   fBC_RemoveButtons()
 
-  fBC1_ShowPhases()
+  fBC1_ShowPhases(name)
   fBC_ShowStandard()
 
   CCC.createButton(pB1_Draw)
+
 end
 
 
 --- CLOCK PHASE PLAYER 1
 function fBC1_ClockPhase()
   CURRENT_PHASE = "CLOCK_1"
+  name = "Clock Phase"
+  broadcastToAll(name, {r = 1, g = 1, b = 1})
 
-  broadcastToAll("Clock Phase", {r = 1, g = 1, b = 1})
   CCC = getObjectFromGUID(ID_CENTER)
 
   fBC_RemoveButtons()
 
-  fBC1_ShowPhases()
+  fBC1_ShowPhases(name)
   fBC_ShowStandard()
 
   CCC.createButton(pB1_DrawTwo)
+
 end
 
 
 --- MAIN PHASE PLAYER 1
 function fBC1_MainPhase()
   CURRENT_PHASE = "MAIN_1"
-
-  broadcastToAll("Main Phase", {r = 1, g = 1, b = 1})
+  name = "Main Phase"
+  broadcastToAll(name, {r = 1, g = 1, b = 1})
   CCC = getObjectFromGUID(ID_CENTER)
 
   fBC_RemoveButtons()
 
-  fBC1_ShowPhases()
+  fBC1_ShowPhases(name)
   fBC_ShowStandard()
 
 end
@@ -98,27 +104,31 @@ end
 --- CLIMAX PHASE PLAYER 1
 function fBC1_ClimaxPhase()
   CURRENT_PHASE = "CLIMAX_1"
+  name = "Climax Phase"
+  broadcastToAll(name, {r = 1, g = 1, b = 1})
 
-  broadcastToAll("Climax Phase", {r = 1, g = 1, b = 1})
   CCC = getObjectFromGUID(ID_CENTER)
 
   fBC_RemoveButtons()
 
-  fBC1_ShowPhases()
+  fBC1_ShowPhases(name)
   fBC_ShowStandard()
+
 end
 
 
 --- ATTACK PHASE PLAYER 1
 function fBC1_AttackPhase()
   CURRENT_PHASE = "ATTACK_1"
-  broadcastToAll("Attack Phase", {r = 1, g = 1, b = 1})
+  name = "Attack Phase"
+  broadcastToAll(name, {r = 1, g = 1, b = 1})
+
   CCC = getObjectFromGUID(ID_CENTER)
 
   fBC_RemoveButtons()
 
-  fBC1_ShowPhases()
-  fBC1_ShowSteps()
+  fBC1_ShowPhases(name)
+  fBC1_ShowSteps(name)
   fBC_ShowStandard()
 
   CCC.createButton(pB1_Trigger)
@@ -132,20 +142,22 @@ function fBC1_AttackPhase()
   CCC.createButton(pB2_TakeDamage)
   CCC.createButton(pB2_Cancel)
   CCC.createButton(pB2_NextStep)
+
 end
 
 
 --- ATTACK DECLARATION PLAYER 1
 function fBC1_AttackDeclarationStep()
   CURRENT_PHASE = "ATKDECL_1"
+  name = "Attack Declaration Step"
+  broadcastToAll(name, {r = 1, g = 1, b = 1})
 
-  broadcastToAll("Attack Declaration Step", {r = 1, g = 1, b = 1})
   CCC = getObjectFromGUID(ID_CENTER)
 
   fBC_RemoveButtons()
 
-  fBC1_ShowPhases()
-  fBC1_ShowSteps()
+  fBC1_ShowPhases(name)
+  fBC1_ShowSteps(name)
   fBC_ShowStandard()
 
   CCC.createButton(pB1_DeclareFrontal)
@@ -157,20 +169,22 @@ function fBC1_AttackDeclarationStep()
   CCC.createButton(pB2_TakeDamage)
   CCC.createButton(pB2_Cancel)
   CCC.createButton(pB2_NextStep)
+
 end
 
 
 --- TRIGGER STEP PLAYER 1
 function fBC1_TriggerStep()
   CURRENT_PHASE = "TRIGGER_1"
+  name = "Trigger Step"
+  broadcastToAll(name, {r = 1, g = 1, b = 1})
 
-  broadcastToAll("Trigger Step", {r = 1, g = 1, b = 1})
   CCC = getObjectFromGUID(ID_CENTER)
 
   fBC_RemoveButtons()
 
-  fBC1_ShowPhases()
-  fBC1_ShowSteps()
+  fBC1_ShowPhases(name)
+  fBC1_ShowSteps(name)
   fBC_ShowStandard()
 
   CCC.createButton(pB1_Trigger)
@@ -183,20 +197,22 @@ function fBC1_TriggerStep()
   CCC.createButton(pB2_TakeDamage)
   CCC.createButton(pB2_Cancel)
   CCC.createButton(pB2_NextStep)
+
 end
 
 
 --- COUNTER STEP PLAYER 1
 function fBC1_CounterStep()
   CURRENT_PHASE = "COUNTER_1"
+  name = "Counter Step"
+  broadcastToAll(name, {r = 1, g = 1, b = 1})
 
-  broadcastToAll("Counter Step", {r = 1, g = 1, b = 1})
   CCC = getObjectFromGUID(ID_CENTER)
 
   fBC_RemoveButtons()
 
-  fBC1_ShowPhases()
-  fBC1_ShowSteps()
+  fBC1_ShowPhases(name)
+  fBC1_ShowSteps(name)
   fBC_ShowStandard()
 
   CCC.createButton(pB1_NextStep)
@@ -206,18 +222,21 @@ function fBC1_CounterStep()
   CCC.createButton(pB2_TakeDamage)
   CCC.createButton(pB2_Cancel)
   CCC.createButton(pB2_NextStep)
+
 end
 
 
 --- DAMAGE STEP PLAYER 1
 function fBC1_DamageStep()
   CURRENT_PHASE = "DAMAGE_1"
-  broadcastToAll("Damage Step", {r = 1, g = 1, b = 1})
+  name = "Damage Step"
+  broadcastToAll(name, {r = 1, g = 1, b = 1})
+
   CCC = getObjectFromGUID(ID_CENTER)
 
   fBC_RemoveButtons()
-  fBC1_ShowPhases()
-  fBC1_ShowSteps()
+  fBC1_ShowPhases(name)
+  fBC1_ShowSteps(name)
   fBC_ShowStandard()
 
   CCC.createButton(pB1_NextStep)
@@ -226,40 +245,44 @@ function fBC1_DamageStep()
   CCC.createButton(pB2_TakeDamage)
   CCC.createButton(pB2_Cancel)
   CCC.createButton(pB2_NextStep)
+
 end
 
 
 --- BATTLE STEP PLAYER 1
 function fBC1_BattleStep()
   CURRENT_PHASE = "BATTLE_1"
+  name = "Battle Step"
+  broadcastToAll(name, {r = 1, g = 1, b = 1})
 
-  broadcastToAll("Battle Step", {r = 1, g = 1, b = 1})
   CCC = getObjectFromGUID(ID_CENTER)
 
   fBC_RemoveButtons()
 
-  fBC1_ShowPhases()
-  fBC1_ShowSteps()
+  fBC1_ShowPhases(name)
+  fBC1_ShowSteps(name)
   fBC_ShowStandard()
 
   CCC.createButton(pB1_DeclareOtherAttack)
   CCC.createButton(pB2_RevealDamage)
   CCC.createButton(pB2_TakeDamage)
   CCC.createButton(pB2_Cancel)
+
 end
 
 
 --- ENCORE STEP PLAYER 1
 function fBC1_EncoreStep()
   CURRENT_PHASE = "ENCORE_1"
+  name = "Encore Step"
+  broadcastToAll(name, {r = 1, g = 1, b = 1})
 
-  broadcastToAll("Encore Step", {r = 1, g = 1, b = 1})
   CCC = getObjectFromGUID(ID_CENTER)
 
   fBC_RemoveButtons()
 
-  fBC1_ShowPhases()
-  fBC1_ShowSteps()
+  fBC1_ShowPhases(name)
+  fBC1_ShowSteps(name)
   fBC_ShowStandard()
 
   CCC.createButton(pB1_ReversedToWR)
@@ -268,6 +291,7 @@ function fBC1_EncoreStep()
   CCC.createButton(pB2_RevealDamage)
   CCC.createButton(pB2_TakeDamage)
   CCC.createButton(pB2_Cancel)
+
 end
 
 
@@ -275,14 +299,19 @@ end
 function fBC1_EndPhase()
   CURRENT_PHASE = "END_1"
 
-  broadcastToAll("End Phase", {r = 1, g = 1, b = 1})
   CCC = getObjectFromGUID(ID_CENTER)
 
   fBC_RemoveButtons()
 
   fBC2_ShowPhases()
-  fBC1_ShowPhases()
   fBC_ShowStandard()
 
   CCC.createButton(pB1_ClimaxToWR)
+
+  name = "End Phase"
+  broadcastToAll(name, {r = 1, g = 1, b = 1})
+  funcName = "fBC1_EndPhase"
+
+  fBC1_ShowPhases(name)
+
 end
