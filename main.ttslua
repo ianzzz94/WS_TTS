@@ -15,13 +15,13 @@ STARTING_COLOR = RED
 TURNCOUNTER = 0
 
 function onObjectEnterScriptingZone(zone, enter_object)
-  -- fCountCardEvent(zone, enter_object, 1)
+  fCountCardEvent(zone, enter_object, 1)
   -- print(zone.getGUID())
   -- print(enter_object.getRotation())
 end
 
 function onObjectLeaveScriptingZone(zone, leave_object)
-  -- fCountCardEvent(zone, leave_object, 0)
+  fCountCardEvent(zone, leave_object, 0)
 end
 
 function onLoad()
