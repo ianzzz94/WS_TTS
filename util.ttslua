@@ -354,6 +354,12 @@ function fCountCardEvent(zone, obj, op)
   if zone.getGUID() == ID1_ZONE_STOCK then
     local text = getObjectFromGUID(ID1_TEXT_STOCK)
     text.TextTool.setValue(cnt..'')
+  elseif zone.getGUID() == ID1_ZONE_ROOM1 then
+    local text = getObjectFromGUID(ID1_TEXT_ROOM1)
+    text.TextTool.setValue(cnt..'')
+  elseif zone.getGUID() == ID1_ZONE_ROOM2 then
+    local text = getObjectFromGUID(ID1_TEXT_ROOM2)
+    text.TextTool.setValue(cnt..'')
     -- elseif zone.getGUID() == ID1_ZONE_LEVEL then
     --   local cnt1 = fCountCardZone(getObjectFromGUID(ID1_ZONE_CLOCK))
     --   local text = getObjectFromGUID(ID1_TEXT_LEVEL)
@@ -370,6 +376,12 @@ function fCountCardEvent(zone, obj, op)
     --   text.TextTool.setValue(cnt..'')
   elseif zone.getGUID() == ID2_ZONE_STOCK then
     local text = getObjectFromGUID(ID2_TEXT_STOCK)
+    text.TextTool.setValue(cnt..'')
+  elseif zone.getGUID() == ID2_ZONE_ROOM1 then
+    local text = getObjectFromGUID(ID2_TEXT_ROOM1)
+    text.TextTool.setValue(cnt..'')
+  elseif zone.getGUID() == ID2_ZONE_ROOM2 then
+    local text = getObjectFromGUID(ID2_TEXT_ROOM2)
     text.TextTool.setValue(cnt..'')
     -- elseif zone.getGUID() == ID2_ZONE_LEVEL then
     --   local cnt1 = fCountCardZone(getObjectFromGUID(ID2_ZONE_CLOCK))
