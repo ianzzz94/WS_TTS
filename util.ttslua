@@ -280,8 +280,35 @@ function fMoveCard(id_zone, pos, rot, istop, issmooth, issingle)
       end
     end
   end
+  Wait.time(function() fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM) end, 0.5)
+  Wait.time(function() fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM) end, 0.5)
 end
 
+function fSplitCxes(id_zone, wr2_pos, wr2_rot)
+  -- print("Split CXES")
+  local deck
+  local zone = getObjectFromGUID(id_zone)
+  local zoneObj = zone.getObjects()
+  for i = #zoneObj, 1, - 1 do
+    if zoneObj[i].tag == 'Deck' then
+      deck = zoneObj[i]
+    elseif zoneObj[i].tag == 'Card' then
+      if string.match(zoneObj[i].getDescription(), "Type: CX") then
+        zoneObj[i].setPositionSmooth(wr2_pos, false, false)
+        zoneObj[i].setRotationSmooth(wr2_rot, false, false)
+      end
+    end
+
+    if deck == nil then
+      return
+    end
+  end
+  for _, card in pairs(deck.getObjects()) do
+    if string.match(card.description, "Type: CX") then
+      deck.takeObject({guid = card.guid, position = wr2_pos, rotation = wr2_rot})
+    end
+  end
+end
 
 function fShuffleCard(id_zone)
   local zone = getObjectFromGUID(id_zone)
@@ -464,6 +491,7 @@ end
 
 function fBC_StartOfGame()
   CCC = getObjectFromGUID(ID_CENTER)
+  TURNCOUNTER = 0
   fBC_SetTurnCounter()
   fBC_RemoveButtons()
   CCC.createButton(pB1_Start)
