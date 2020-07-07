@@ -56,7 +56,7 @@ pB2_RefreshDamage = {
 }
 pB2_BlindStock = {
   click_function = 'fBC2_BlindStock',
-  label = 'Blind Stock',
+  label = 'Top to Stock',
   position = { - 8.85, 0.6, - 3.5},
   rotation = pB1_ROTATION,
   scale = pB_SCALE,

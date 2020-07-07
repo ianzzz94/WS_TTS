@@ -1,0 +1,11 @@
+pB_NewGame = {
+  click_function = 'fBC_StartOfGame',
+  label = 'New Game',
+  position = {11.5, 0, 0},
+  rotation = pB_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  tooltip = toolTipNewGame,
+}

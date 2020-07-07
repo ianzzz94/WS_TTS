@@ -97,7 +97,7 @@ function fBC1_TopToClock()
   local zone = getObjectFromGUID(ID1_ZONE_CLOCK)
   local cnt = fCountCardZone(zone)
   if cnt >= 0 and cnt < 7 then
-    fMoveCard(ID1_ZONE_DECK, { - 5.3 + XXX + 1.53 * cnt, 2.07, - 10.2}, {0, 180, 5.6}, false, true, true)
+    fMoveCard(ID1_ZONE_DECK, { - 5.3 + XXX + 1.53 * cnt, 2.07, - 10.2}, {0, 180, 5.6}, true, true, true)
   end
 end
 
@@ -219,7 +219,7 @@ function fBC2_TopToClock()
   local zone = getObjectFromGUID(ID2_ZONE_CLOCK)
   local cnt = fCountCardZone(zone)
   if cnt >= 0 and cnt < 7 then
-    fMoveCard(ID2_ZONE_DECK, {5.3 + XXX - 1.53 * cnt, 2.07, 10.2}, {0, 0, 5.6}, false, true, true)
+    fMoveCard(ID2_ZONE_DECK, {5.3 + XXX - 1.53 * cnt, 2.07, 10.2}, {0, 0, 5.6}, true, true, true)
   end
 end
 
@@ -323,6 +323,9 @@ end
 
 function fCountCardObject(obj)
   local cnt = 0
+  if not obj then
+    return cnt
+  end
 
   if obj.tag == 'Deck' then
     cnt = #obj.getObjects()
@@ -396,7 +399,7 @@ function fCountCardEvent(zone, obj, op)
 end
 
 function isFaceDown(object)
-  if (object.getRotation()[3] > 179.9 and object.getRotation()[3] < 181.1) then
+  if (object.getRotation()[3] > 160 and object.getRotation()[3] < 200) then
     return true
   else
     return false
@@ -599,7 +602,7 @@ function fBC2_ReversedToWR()
     local rotationValue = frontRowObjects[i].getRotation()
     if (not isFaceDown(frontRowObjects[i])) then
       if (frontRowObjects[i].tag == 'Card' or frontRowObjects[i].tag == 'Deck') then
-        if (rotationValue[2] < 180.1) and (rotationValue[2] > 179.9) then
+        if (rotationValue[2] < 200) and (rotationValue[2] > 160) then
           frontRowObjects[i].setPositionSmooth(POS2_ROOM, false, false)
           frontRowObjects[i].setRotationSmooth(ROT2_ROOM, false, false)
         end
@@ -610,7 +613,7 @@ function fBC2_ReversedToWR()
     local rotationValue = backRowObjects[i].getRotation()
     if (not isFaceDown(backRowObjects[i])) then
       if (backRowObjects[i].tag == 'Card' or backRowObjects[i].tag == 'Deck') then
-        if (rotationValue[2] < 180.1) and (rotationValue[2] > 179.9) then
+        if (rotationValue[2] < 200) and (rotationValue[2] > 160) then
           backRowObjects[i].setPositionSmooth(POS2_ROOM, false, false)
           backRowObjects[i].setRotationSmooth(ROT2_ROOM, false, false)
         end
@@ -711,7 +714,7 @@ function fBC1_ReversedToWR()
     local rotationValue = frontRowObjects[i].getRotation()
     if (not isFaceDown(frontRowObjects[i])) then
       if (frontRowObjects[i].tag == 'Card' or frontRowObjects[i].tag == 'Deck') then
-        if rotationValue[2] < 0.1 then
+        if rotationValue[2] < 20 or rotationValue[2] > 340 then
           frontRowObjects[i].setPositionSmooth(POS1_ROOM, false, false)
           frontRowObjects[i].setRotationSmooth(ROT1_ROOM, false, false)
         end
@@ -723,7 +726,7 @@ function fBC1_ReversedToWR()
 
     if (not isFaceDown(backRowObjects[i])) then
       if (backRowObjects[i].tag == 'Card' or backRowObjects[i].tag == 'Deck') then
-        if rotationValue[2] < 0.1 then
+        if rotationValue[2] < 20 or rotationValue[2] > 340 then
           backRowObjects[i].setPositionSmooth(POS1_ROOM, false, false)
           backRowObjects[i].setRotationSmooth(ROT1_ROOM, false, false)
         end
@@ -1015,7 +1018,6 @@ end
 
 function fBC_UpdateTurnCounter(color)
   counter = getObjectFromGUID(ID_TEXT_TURNCOUNTER)
-  print(counter)
   if color == STARTING_COLOR then
     TURNCOUNTER = TURNCOUNTER + 1
   end
