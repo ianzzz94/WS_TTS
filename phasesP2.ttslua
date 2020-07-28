@@ -55,6 +55,9 @@ function fBC2_StandPhase()
 
   CCC.createButton(pB2_StandAll)
 
+  CCC.createButton(pB1_RevealDamage)
+  CCC.createButton(pB1_TakeDamage)
+  CCC.createButton(pB1_Cancel)
 end
 
 
@@ -73,6 +76,9 @@ function fBC2_DrawPhase()
 
   CCC.createButton(pB2_Draw)
 
+  CCC.createButton(pB1_RevealDamage)
+  CCC.createButton(pB1_TakeDamage)
+  CCC.createButton(pB1_Cancel)
 end
 
 
@@ -91,6 +97,9 @@ function fBC2_ClockPhase()
 
   CCC.createButton(pB2_DrawTwo)
 
+  CCC.createButton(pB1_RevealDamage)
+  CCC.createButton(pB1_TakeDamage)
+  CCC.createButton(pB1_Cancel)
 end
 
 
@@ -107,6 +116,9 @@ function fBC2_MainPhase()
   fBC2_ShowPhases(name)
   fBC_ShowStandard()
 
+  CCC.createButton(pB1_RevealDamage)
+  CCC.createButton(pB1_TakeDamage)
+  CCC.createButton(pB1_Cancel)
 end
 
 
@@ -143,7 +155,6 @@ function fBC2_AttackPhase()
   CCC.createButton(pB2_Trigger)
   CCC.createButton(pB2_TriggerToStock)
   CCC.createButton(pB2_TriggerToHand)
-  CCC.createButton(pB2_BlindStock)
   CCC.createButton(pB2_NextStep)
 
   CCC.createButton(pB1_RevealDamage)
@@ -198,7 +209,6 @@ function fBC2_TriggerStep()
   CCC.createButton(pB2_Trigger)
   CCC.createButton(pB2_TriggerToStock)
   CCC.createButton(pB2_TriggerToHand)
-  CCC.createButton(pB2_BlindStock)
   CCC.createButton(pB2_NextStep)
 
   CCC.createButton(pB1_RevealDamage)
@@ -319,4 +329,7 @@ function fBC2_EndPhase()
 
   CCC.createButton(pB2_ClimaxToWR)
 
+  CCC.createButton(pB1_RevealDamage)
+  CCC.createButton(pB1_TakeDamage)
+  CCC.createButton(pB1_Cancel)
 end

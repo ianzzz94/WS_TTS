@@ -1,14 +1,45 @@
 --Player 1 Functions
 function fBC1_Reveal()
-  fMoveCard(ID1_ZONE_DECK, POS1_CHECK, ROT1_CHECK, true, true, true)
+  local zone = getObjectFromGUID(ID1_ZONE_CHECK)
+  local cnt = fCountCardZone(zone)
+  if cnt >= 0 and cnt < 8 then
+    fMoveCard(ID1_ZONE_DECK, {1.4 + 1.2 * cnt, 3, 0}, ROT1_CHECK, true, false, true)
+  else
+    fMoveCard(ID1_ZONE_DECK, {1.4 + 7 * 1.2, 3, 0}, ROT1_CHECK, true, false, true)
+  end
   fBC1_ShowRevealButtons()
 end
 
 
 function fBC1_Reveal2Stock()
-  local zone = getObjectFromGUID(ID1_ZONE_CHECK)
-  fMoveCard(ID1_ZONE_CHECK, POS1_STOCK, ROT1_STOCK, false, false, true)
+
+  local zone = getObjectFromGUID(ID1_ZONE_STOCK)
+  local cnt = fCountCardZone(zone)
+  local guid = fGetBottomResolution(ID1_ZONE_CHECK, 1)
+  local obj = getObjectFromGUID(guid)
+  local pos
+  local rot
+  if cnt >= 0 and cnt < 8 then
+    pos = { - 10.5, 3, - 2.55 - cnt * 1.2}
+    rot = ROT1_STOCK
+  else
+    pos = { - 10.5, 3, - 2.55 - 7 * 1.2}
+    rot = ROT1_STOCK
+  end
+  if obj.tag == 'Deck' then
+    obj.takeObject({
+      position = pos,
+      rotation = rot,
+      top = false,
+    })
+  elseif obj.tag == 'Card' then
+    -- print(pos)
+    obj.setPosition(pos)
+    obj.setRotation(rot)
+  end
+  zone = getObjectFromGUID(ID1_ZONE_CHECK)
   Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+
 end
 
 
@@ -29,8 +60,26 @@ end
 function fBC1_Reveal2Clock()
   local zone = getObjectFromGUID(ID1_ZONE_CLOCK)
   local cnt = fCountCardZone(zone)
+  local guid = fGetBottomResolution(ID1_ZONE_CHECK, 1)
+  local obj = getObjectFromGUID(guid)
+  local pos
+  local rot
   if cnt >= 0 and cnt < 7 then
-    fMoveCard(ID1_ZONE_CHECK, { - 5.3 + XXX + 1.53 * cnt, 2.07, - 10.2}, {0, 180, 5.6}, false, false, true)
+    pos = { - 3.9 + 1.17 * cnt, 2.07, - 10}
+    rot = {0, 180, 0}
+  else
+    return
+  end
+  if obj.tag == 'Deck' then
+    obj.takeObject({
+      position = pos,
+      rotation = rot,
+      top = false,
+    })
+  elseif obj.tag == 'Card' then
+    -- print(pos)
+    obj.setPosition(pos)
+    obj.setRotation(rot)
   end
   zone = getObjectFromGUID(ID1_ZONE_CHECK)
   Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
@@ -72,12 +121,51 @@ end
 
 
 function fBC1_Stock()
-  fMoveCard(ID1_ZONE_STOCK, POS1_ROOM, ROT1_ROOM, true, true, true)
+  local guid = fGetTopStock(ID1_ZONE_STOCK, 1)
+  -- print(guid)
+  local obj = getObjectFromGUID(guid)
+  if obj.tag == 'Deck' then
+    obj.takeObject({
+      position = POS1_ROOM,
+      rotation = ROT1_ROOM,
+      smooth = false,
+      top = true,
+    })
+  elseif obj.tag == 'Card' then
+    obj.setPosition(POS1_ROOM)
+    obj.setRotation(ROT1_ROOM)
+  end
+  fCountCardEvent(getObjectFromGUID(ID1_ZONE_STOCK), enter_object, 1)
+  -- fMoveCard(ID1_ZONE_STOCK, POS1_ROOM, ROT1_ROOM, true, true, true)
+  Wait.time(function() fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM) end, 0.5)
+  Wait.time(function() fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM) end, 0.5)
 end
 
 
 function fBC1_BotStock()
-  fMoveCard(ID1_ZONE_STOCK, POS1_ROOM, ROT1_ROOM, false, true, true)
+  local guid = fGetBottomStock(ID1_ZONE_STOCK, 1)
+  -- print(guid)
+  local obj = getObjectFromGUID(guid)
+  if obj.tag == 'Deck' then
+    obj.takeObject({
+      position = POS1_ROOM,
+      rotation = ROT1_ROOM,
+      smooth = false,
+      top = false,
+    })
+  elseif obj.tag == 'Card' then
+    obj.setPosition(POS1_ROOM)
+    obj.setRotation(ROT1_ROOM)
+  end
+  fCountCardEvent(getObjectFromGUID(ID1_ZONE_STOCK), enter_object, 1)
+  Wait.time(function() fSortStock(ID1_ZONE_STOCK, 1) end, 0.1)
+  Wait.time(function() fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM) end, 0.5)
+  Wait.time(function() fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM) end, 0.5)
+end
+
+
+function fBC1_SortStock()
+  fSortStock(ID1_ZONE_STOCK, 1)
 end
 
 
@@ -87,8 +175,8 @@ end
 
 
 function fBC1_Refresh()
-  fMoveCard(ID1_ZONE_ROOM, POS1_DECK, ROT1_DECK, true, true, false)
-  fMoveCard(ID1_ZONE_DECK, POS1_DECK, ROT1_DECK, true, true, false)
+  fMoveCard(ID1_ZONE_ROOM, POS1_DECK, ROT1_DECK, true, true, false, false)
+  fMoveCard(ID1_ZONE_DECK, POS1_DECK, ROT1_DECK, true, true, false, false)
   Wait.time(function() fShuffleCard(ID1_ZONE_DECK) end, 0.8)
 end
 
@@ -97,7 +185,7 @@ function fBC1_TopToClock()
   local zone = getObjectFromGUID(ID1_ZONE_CLOCK)
   local cnt = fCountCardZone(zone)
   if cnt >= 0 and cnt < 7 then
-    fMoveCard(ID1_ZONE_DECK, { - 5.3 + XXX + 1.53 * cnt, 2.07, - 10.2}, {0, 180, 5.6}, true, true, true)
+    fMoveCard(ID1_ZONE_DECK, { - 3.9 + 1.17 * cnt, 2.07, - 10}, {0, 180, 0}, true, false, true)
   end
 end
 
@@ -123,15 +211,48 @@ end
 
 --Player 2 Functions
 function fBC2_Reveal()
-  fMoveCard(ID2_ZONE_DECK, POS2_CHECK, ROT2_CHECK, true, true, true)
+  local zone = getObjectFromGUID(ID2_ZONE_CHECK)
+  local cnt = fCountCardZone(zone)
+  if cnt >= 0 and cnt < 8 then
+    fMoveCard(ID2_ZONE_DECK, { - 1.9 - 1.2 * cnt, 3, 0}, ROT2_CHECK, true, false, true)
+  else
+    fMoveCard(ID2_ZONE_DECK, { - 1.9 - 1.2 * 7, 3, 0}, ROT2_CHECK, true, false, true)
+  end
   fBC2_ShowRevealButtons()
 end
 
 
 function fBC2_Reveal2Stock()
-  local zone = getObjectFromGUID(ID2_ZONE_CHECK)
-  fMoveCard(ID2_ZONE_CHECK, POS2_STOCK, ROT2_STOCK, false, false, true)
+
+
+  local zone = getObjectFromGUID(ID2_ZONE_STOCK)
+  local cnt = fCountCardZone(zone)
+  local guid = fGetBottomResolution(ID2_ZONE_CHECK, 2)
+  local obj = getObjectFromGUID(guid)
+  local pos
+  local rot
+  if cnt >= 0 and cnt < 8 then
+    pos = {10.5, 3, 2.6 + cnt * 1.2}
+    rot = ROT2_STOCK
+  else
+    pos = {10.5, 3, 2.6 + 7 * 1.2}
+    rot = ROT2_STOCK
+  end
+  if obj.tag == 'Deck' then
+    obj.takeObject({
+      position = pos,
+      rotation = rot,
+      top = false,
+    })
+  elseif obj.tag == 'Card' then
+    -- print(pos)
+    obj.setPosition(pos)
+    obj.setRotation(rot)
+  end
+  zone = getObjectFromGUID(ID2_ZONE_CHECK)
   Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
+
+
 end
 
 
@@ -152,8 +273,26 @@ end
 function fBC2_Reveal2Clock()
   local zone = getObjectFromGUID(ID2_ZONE_CLOCK)
   local cnt = fCountCardZone(zone)
+  local guid = fGetBottomResolution(ID2_ZONE_CHECK, 2)
+  local obj = getObjectFromGUID(guid)
+  local pos
+  local rot
   if cnt >= 0 and cnt < 7 then
-    fMoveCard(ID2_ZONE_CHECK, {5.3 + XXX - 1.53 * cnt, 2.07, 10.2}, {0, 0, 5.6}, false, false, true)
+    pos = { 3.8 - 1.15 * cnt, 2.07, 9.9}
+    rot = {0, 0, 0}
+  else
+    return
+  end
+  if obj.tag == 'Deck' then
+    obj.takeObject({
+      position = pos,
+      rotation = rot,
+      top = false,
+    })
+  elseif obj.tag == 'Card' then
+    -- print(pos)
+    obj.setPosition(pos)
+    obj.setRotation(rot)
   end
   zone = getObjectFromGUID(ID2_ZONE_CHECK)
   Wait.time(function() fBC_CheckRemoveTemp(zone) end, 0.01)
@@ -193,24 +332,72 @@ function fBC2_All2Room()
 end
 
 
-function fBC2_Stock()
-  fMoveCard(ID2_ZONE_STOCK, POS2_ROOM, ROT2_ROOM, true, true, true)
-end
-
-
-function fBC2_BotStock()
-  fMoveCard(ID2_ZONE_STOCK, POS2_ROOM, ROT2_ROOM, false, true, true)
-end
-
+-- function fBC2_Stock()
+--   fMoveCard(ID2_ZONE_STOCK, POS2_ROOM, ROT2_ROOM, true, true, true)
+-- end
+--
+--
+-- function fBC2_BotStock()
+--   fMoveCard(ID2_ZONE_STOCK, POS2_ROOM, ROT2_ROOM, false, true, true)
+-- end
 
 function fBC2_LevelUp()
   fMoveCard(ID2_ZONE_CLOCK, POS2_ROOM, ROT2_ROOM, true, true, false)
 end
 
 
+function fBC2_Stock()
+  local guid = fGetTopStock(ID2_ZONE_STOCK, 2)
+  -- print(guid)
+  local obj = getObjectFromGUID(guid)
+  if obj.tag == 'Deck' then
+    obj.takeObject({
+      position = POS2_ROOM,
+      rotation = ROT2_ROOM,
+      smooth = false,
+      top = true,
+    })
+  elseif obj.tag == 'Card' then
+    obj.setPosition(POS2_ROOM)
+    obj.setRotation(ROT2_ROOM)
+  end
+  fCountCardEvent(getObjectFromGUID(ID2_ZONE_STOCK), enter_object, 1)
+  -- fMoveCard(ID1_ZONE_STOCK, POS1_ROOM, ROT1_ROOM, true, true, true)
+  Wait.time(function() fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM) end, 0.5)
+  Wait.time(function() fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM) end, 0.5)
+end
+
+
+function fBC2_BotStock()
+  local guid = fGetBottomStock(ID2_ZONE_STOCK, 2)
+  -- print(guid)
+  local obj = getObjectFromGUID(guid)
+  if obj.tag == 'Deck' then
+    obj.takeObject({
+      position = POS2_ROOM,
+      rotation = ROT2_ROOM,
+      smooth = false,
+      top = false,
+    })
+  elseif obj.tag == 'Card' then
+    obj.setPosition(POS2_ROOM)
+    obj.setRotation(ROT2_ROOM)
+  end
+  fCountCardEvent(getObjectFromGUID(ID2_ZONE_STOCK), enter_object, 1)
+  Wait.time(function() fSortStock(ID2_ZONE_STOCK, 2) end, 0.1)
+  Wait.time(function() fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM) end, 0.5)
+  Wait.time(function() fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM) end, 0.5)
+end
+
+
+function fBC2_SortStock()
+  fSortStock(ID2_ZONE_STOCK, 2)
+end
+
+
 function fBC2_Refresh()
-  fMoveCard(ID2_ZONE_ROOM, POS2_DECK, ROT2_DECK, true, true, false)
-  fMoveCard(ID2_ZONE_DECK, POS2_DECK, ROT2_DECK, true, true, false)
+  fMoveCard(ID2_ZONE_ROOM, POS2_DECK, ROT2_DECK, true, true, false, false)
+  fMoveCard(ID2_ZONE_DECK, POS2_DECK, ROT2_DECK, true, true, false, false)
   Wait.time(function() fShuffleCard(ID2_ZONE_DECK) end, 0.8)
 end
 
@@ -219,7 +406,7 @@ function fBC2_TopToClock()
   local zone = getObjectFromGUID(ID2_ZONE_CLOCK)
   local cnt = fCountCardZone(zone)
   if cnt >= 0 and cnt < 7 then
-    fMoveCard(ID2_ZONE_DECK, {5.3 + XXX - 1.53 * cnt, 2.07, 10.2}, {0, 0, 5.6}, true, true, true)
+    fMoveCard(ID2_ZONE_DECK, { 3.8 - 1.15 * cnt, 2.07, 9.9}, {0, 0, 0}, true, false, true)
   end
 end
 
@@ -243,7 +430,8 @@ function fBC2_MillBottom()
 end
 
 --General Functions
-function fMoveCard(id_zone, pos, rot, istop, issmooth, issingle)
+function fMoveCard(id_zone, pos, rot, istop, issmooth, issingle, splitcxes)
+  splitcxes = splitcxes or true
   local zone = getObjectFromGUID(id_zone)
   local zoneObj = zone.getObjects()
 
@@ -257,6 +445,7 @@ function fMoveCard(id_zone, pos, rot, istop, issmooth, issingle)
           smooth = issmooth,
         }
         zoneObj[i].takeObject(takeParams)
+        break
       elseif zoneObj[i].tag == 'Card' then
         if issmooth then
           zoneObj[i].setPositionSmooth(pos, false, false)
@@ -265,6 +454,7 @@ function fMoveCard(id_zone, pos, rot, istop, issmooth, issingle)
           zoneObj[i].setPosition(pos)
           zoneObj[i].setRotation(rot)
         end
+        break
       end
     end
   else
@@ -280,8 +470,209 @@ function fMoveCard(id_zone, pos, rot, istop, issmooth, issingle)
       end
     end
   end
-  Wait.time(function() fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM) end, 0.5)
-  Wait.time(function() fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM) end, 0.5)
+  fCountCardEvent(zone, enter_object, 1)
+  if splitcxes then
+    -- print("split")
+    if issmooth then
+      Wait.time(function() fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM) end, 0.5)
+      Wait.time(function() fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM) end, 0.5)
+    else
+      Wait.time(function() fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM) end, 0.1)
+      Wait.time(function() fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM) end, 0.1)
+    end
+  end
+end
+
+function fGetBottomResolution(id_zone, player)
+  --returns the GUID of the bottom stock
+  local zone = getObjectFromGUID(id_zone)
+  local zoneObj = zone.getObjects()
+  local t = {}
+  for i = #zoneObj, 1, - 1 do
+    if zoneObj[i].tag == 'Card' then
+      t[zoneObj[i].guid] = zoneObj[i].getPosition()[1]
+    elseif zoneObj[i].tag == 'Deck' then
+      deckObj = zoneObj[i].getObjects()
+      for j = #deckObj, 1, - 1 do
+        t[zoneObj[i].guid] = zoneObj[i].getPosition()[1]
+      end
+    end
+  end
+  local sorted = {}
+  for k, v in pairs(t) do
+    table.insert(sorted, {k, v})
+  end
+  if player == 1 then
+    table.sort(sorted, function(a, b) return a[2] < b[2] end)
+  elseif player == 2 then
+    table.sort(sorted, function(a, b) return a[2] > b[2] end)
+  end
+  return sorted[1][1]
+end
+
+function fGetTopResolution(id_zone, player)
+  --returns the GUID of the bottom stock
+  local zone = getObjectFromGUID(id_zone)
+  local zoneObj = zone.getObjects()
+  local t = {}
+  for i = #zoneObj, 1, - 1 do
+    if zoneObj[i].tag == 'Card' then
+      t[zoneObj[i].guid] = zoneObj[i].getPosition()[1]
+    elseif zoneObj[i].tag == 'Deck' then
+      deckObj = zoneObj[i].getObjects()
+      for j = #deckObj, 1, - 1 do
+        t[zoneObj[i].guid] = zoneObj[i].getPosition()[1]
+      end
+    end
+  end
+  local sorted = {}
+  for k, v in pairs(t) do
+    table.insert(sorted, {k, v})
+  end
+  if player == 1 then
+    table.sort(sorted, function(a, b) return a[2] > b[2] end)
+  elseif player == 2 then
+    table.sort(sorted, function(a, b) return a[2] < b[2] end)
+  end
+  return sorted[#sorted][1]
+end
+
+
+function fGetBottomStock(id_zone, player)
+  --returns the GUID of the bottom stock
+  local zone = getObjectFromGUID(id_zone)
+  local zoneObj = zone.getObjects()
+  local t = {}
+  for i = #zoneObj, 1, - 1 do
+    if zoneObj[i].tag == 'Card' then
+      t[zoneObj[i].guid] = zoneObj[i].getPosition()[3]
+    elseif zoneObj[i].tag == 'Deck' then
+      deckObj = zoneObj[i].getObjects()
+      for j = #deckObj, 1, - 1 do
+        t[zoneObj[i].guid] = zoneObj[i].getPosition()[3]
+      end
+    end
+  end
+  local sorted = {}
+  for k, v in pairs(t) do
+    table.insert(sorted, {k, v})
+  end
+  if player == 1 then
+    table.sort(sorted, function(a, b) return a[2] > b[2] end)
+  elseif player == 2 then
+    table.sort(sorted, function(a, b) return a[2] < b[2] end)
+  end
+  return sorted[1][1]
+end
+
+function fGetTopStock(id_zone, player)
+  --returns the GUID of the bottom stock
+  local zone = getObjectFromGUID(id_zone)
+  local zoneObj = zone.getObjects()
+  local t = {}
+  for i = #zoneObj, 1, - 1 do
+    if zoneObj[i].tag == 'Card' then
+      t[zoneObj[i].guid] = zoneObj[i].getPosition()[3]
+    elseif zoneObj[i].tag == 'Deck' then
+      deckObj = zoneObj[i].getObjects()
+      for j = #deckObj, 1, - 1 do
+        t[zoneObj[i].guid] = zoneObj[i].getPosition()[3]
+      end
+    end
+  end
+  local sorted = {}
+  for k, v in pairs(t) do
+    table.insert(sorted, {k, v})
+  end
+  if player == 1 then
+    table.sort(sorted, function(a, b) return a[2] > b[2] end)
+  elseif player == 2 then
+    table.sort(sorted, function(a, b) return a[2] < b[2] end)
+  end
+  return sorted[#sorted][1]
+end
+
+function fSortStock(id_zone, player)
+  local zone = getObjectFromGUID(id_zone)
+  local zoneObj = zone.getObjects()
+  if player == 1 then
+    pos = { - 10.6, 3, - 2.55}
+  elseif player == 2 then
+    pos = {10.3, 3, 2.6}
+  end
+  local t = {}
+  for i = #zoneObj, 1, - 1 do
+    if zoneObj[i].tag == 'Card' then
+      t[zoneObj[i].guid] = zoneObj[i].getPosition()[3]
+    elseif zoneObj[i].tag == 'Deck' then
+      deckObj = zoneObj[i].getObjects()
+      for j = #deckObj, 1, - 1 do
+        t[zoneObj[i].guid] = zoneObj[i].getPosition()[3]
+      end
+    end
+  end
+  local sorted = {}
+  for k, v in pairs(t) do
+    table.insert(sorted, {k, v})
+  end
+  if player == 1 then
+    table.sort(sorted, function(a, b) return a[2] > b[2] end)
+  elseif player == 2 then
+    table.sort(sorted, function(a, b) return a[2] < b[2] end)
+  end
+  cnt = 0
+  for _, v in ipairs(sorted) do
+    if player == 1 then
+      if cnt < 8 then
+        if getObjectFromGUID(v[1]).tag == 'Card' then
+          getObjectFromGUID(v[1]).setPosition({ - 10.5, 3, - 2.55 - 1.2 * cnt})
+          getObjectFromGUID(v[1]).setRotation(ROT1_STOCK)
+
+        elseif getObjectFromGUID(v[1]).tag == 'Deck' then
+          while(getObjectFromGUID(v[1]).getObjects() and cnt < 8 ) do
+            getObjectFromGUID(v[1]).takeObject({
+              position = { - 10.5, 3, - 2.55 - 1.2 * cnt},
+              top = false,
+              smooth = false,
+            })
+            getObjectFromGUID(v[1]).setRotation(ROT1_STOCK)
+            cnt = cnt + 1
+          end
+        end
+      else
+        getObjectFromGUID(v[1]).setPosition({ - 10.5, 3, - 2.55 - 1.2 * 7})
+        getObjectFromGUID(v[1]).setRotation(ROT1_STOCK)
+      end
+
+    elseif player == 2 then
+      if cnt < 8 then
+        if getObjectFromGUID(v[1]).tag == 'Card' then
+          getObjectFromGUID(v[1]).setPosition({10.3, 3, 2.6 + 1.2 * cnt})
+
+        elseif getObjectFromGUID(v[1]).tag == 'Deck' then
+          while(getObjectFromGUID(v[1]).getObjects() and cnt < 8 ) do
+            getObjectFromGUID(v[1]).takeObject({
+              position = {10.3, 3, 2.6 + 1.2 * cnt},
+              top = false,
+              smooth = false,
+            })
+            cnt = cnt + 1
+          end
+        end
+      else
+        getObjectFromGUID(v[1]).setPosition({10.3, 3, 2.6 + 1.2 * 7})
+      end
+
+    end
+    cnt = cnt + 1
+  end
+
+
+  -- for i = #zoneObj, 1, - 1 do
+  --   if zoneObj[i].tag == 'Deck' or zoneObj[i].tag == 'Card' then
+  --     zoneObj[i].setPosition(pos)
+  --   end
+  -- end
 end
 
 function fSplitCxes(id_zone, wr2_pos, wr2_rot)
@@ -348,13 +739,13 @@ end
 function fCountCardEvent(zone, obj, op)
   --if obj.tag == 'Deck' or obj.tag == 'Card' then
   local cnt = fCountCardZone(zone) + op * fCountCardObject(obj)
-  -- if zone.getGUID() == ID1_ZONE_DECK then
-  --   local text = getObjectFromGUID(ID1_TEXT_DECK)
-  --   text.TextTool.setValue(cnt..'')
-  -- elseif zone.getGUID() == ID1_ZONE_HAND then
-  --   local text = getObjectFromGUID(ID1_TEXT_HAND)
-  --   text.TextTool.setValue(cnt..'')
-  if zone.getGUID() == ID1_ZONE_STOCK then
+  if zone.getGUID() == ID1_ZONE_DECK then
+    local text = getObjectFromGUID(ID1_TEXT_DECK)
+    text.TextTool.setValue(cnt..'')
+    -- elseif zone.getGUID() == ID1_ZONE_HAND then
+    --   local text = getObjectFromGUID(ID1_TEXT_HAND)
+    --   text.TextTool.setValue(cnt..'')
+  elseif zone.getGUID() == ID1_ZONE_STOCK then
     local text = getObjectFromGUID(ID1_TEXT_STOCK)
     text.TextTool.setValue(cnt..'')
   elseif zone.getGUID() == ID1_ZONE_ROOM1 then
@@ -371,9 +762,9 @@ function fCountCardEvent(zone, obj, op)
     --   local cnt1 = fCountCardZone(getObjectFromGUID(ID1_ZONE_LEVEL))
     --   local text = getObjectFromGUID(ID1_TEXT_LEVEL)
     --   text.TextTool.setValue(cnt1..'-'..cnt)
-    -- elseif zone.getGUID() == ID2_ZONE_DECK then
-    --   local text = getObjectFromGUID(ID2_TEXT_DECK)
-    --   text.TextTool.setValue(cnt..'')
+  elseif zone.getGUID() == ID2_ZONE_DECK then
+    local text = getObjectFromGUID(ID2_TEXT_DECK)
+    text.TextTool.setValue(cnt..'')
     -- elseif zone.getGUID() == ID2_ZONE_HAND then
     --   local text = getObjectFromGUID(ID2_TEXT_HAND)
     --   text.TextTool.setValue(cnt..'')
@@ -444,7 +835,7 @@ function fBC_NextPhase()
   elseif CURRENT_PHASE == "CLOCK_2" then
     fBC2_MainPhase()
   elseif CURRENT_PHASE == "MAIN_2" then
-    fBC2_ClimaxPhase()
+    fBC2_AttackPhase()
   elseif CURRENT_PHASE == "CLIMAX_2" then
     fBC2_AttackPhase()
   elseif CURRENT_PHASE == "ATTACK_2" then
@@ -473,7 +864,7 @@ function fBC_NextPhase()
   elseif CURRENT_PHASE == "CLOCK_1" then
     fBC1_MainPhase()
   elseif CURRENT_PHASE == "MAIN_1" then
-    fBC1_ClimaxPhase()
+    fBC1_AttackPhase()
   elseif CURRENT_PHASE == "CLIMAX_1" then
     fBC1_AttackPhase()
   elseif CURRENT_PHASE == "ATTACK_1" then
@@ -508,7 +899,20 @@ function fBC_StartOfGame()
   CCC = getObjectFromGUID(ID_CENTER)
   TURNCOUNTER = 0
   fBC_SetTurnCounter()
+  fBC_UpdateZoneTexts()
   fBC_RemoveButtons()
+  spawnObject(
+    {
+      type = "Die_6",
+      position = POS1_DIE
+    }
+  )
+  spawnObject(
+    {
+      type = "Die_6",
+      position = POS2_DIE
+    }
+  )
   CCC.createButton(pB1_Start)
   CCC.createButton(pB2_Start)
   CCC.createButton(pB1_Second)
@@ -583,7 +987,13 @@ end
 
 
 function fBC2_BlindStock()
-  fMoveCard(ID2_ZONE_DECK, POS2_STOCK, ROT2_STOCK, true, true, true)
+  local zone = getObjectFromGUID(ID2_ZONE_STOCK)
+  local cnt = fCountCardZone(zone)
+  if cnt >= 0 and cnt < 8 then
+    fMoveCard(ID2_ZONE_DECK, {10.5, 3, 2.6 + cnt * 1.2}, ROT2_STOCK, true, false, true)
+  else
+    fMoveCard(ID2_ZONE_DECK, {10.5, 3, 2.6 + 7 * 1.2}, ROT2_STOCK, true, false, true)
+  end
 end
 
 
@@ -695,7 +1105,13 @@ end
 
 
 function fBC1_BlindStock()
-  fMoveCard(ID1_ZONE_DECK, POS1_STOCK, ROT1_STOCK, true, true, true)
+  local zone = getObjectFromGUID(ID1_ZONE_STOCK)
+  local cnt = fCountCardZone(zone)
+  if cnt >= 0 and cnt < 8 then
+    fMoveCard(ID1_ZONE_DECK, { - 10.5, 3, - 2.55 - cnt * 1.2}, ROT1_STOCK, true, false, true)
+  else
+    fMoveCard(ID1_ZONE_DECK, { - 10.5, 3, - 2.55 - 7 * 1.2}, ROT1_STOCK, true, false, true)
+  end
 end
 
 
@@ -922,8 +1338,10 @@ function fBC_ShowStandard()
   CCC.createButton(pB_NewGame)
   CCC.createButton(pB1_Stock)
   CCC.createButton(pB1_BotStock)
+  CCC.createButton(pB1_SortStock)
   CCC.createButton(pB2_Stock)
   CCC.createButton(pB2_BotStock)
+  CCC.createButton(pB2_SortStock)
   CCC.createButton(pB1_Refresh)
   CCC.createButton(pB2_Refresh)
   CCC.createButton(pB1_LevelUp)
@@ -961,7 +1379,7 @@ function fBC_RemoveTempButtons()
   CCC = getObjectFromGUID(ID_CENTER)
   local buttons = CCC.getButtons()
   for i = #buttons, 1, - 1 do
-    if (buttons[i].color == GREY) then
+    if (buttons[i].hover_color == GREY) then
       CCC.removeButton(buttons[i].index)
     end
   end
@@ -1003,6 +1421,37 @@ function fBCChangePhaseColorByFunc(funcName)
       CCC.editButton({index = i - 1, color = HONEY})
       return
     end
+  end
+end
+
+
+function fBC_UpdateZoneTexts()
+  texts = {
+    ID1_TEXT_DECK,
+    ID1_TEXT_STOCK,
+    ID1_TEXT_ROOM1,
+    ID1_TEXT_ROOM2,
+    ID2_TEXT_DECK,
+    ID2_TEXT_STOCK,
+    ID2_TEXT_ROOM1,
+    ID2_TEXT_ROOM2
+  }
+  zones = {
+    ID1_ZONE_DECK,
+    ID1_ZONE_STOCK,
+    ID1_ZONE_ROOM1,
+    ID1_ZONE_ROOM2,
+    ID2_ZONE_DECK,
+    ID2_ZONE_STOCK,
+    ID2_ZONE_ROOM1,
+    ID2_ZONE_ROOM2
+  }
+
+  for i = #zones, 1, - 1 do
+    counter = getObjectFromGUID(texts[i])
+    zone = getObjectFromGUID(zones[i])
+    -- print(fCountCardZone(zone))
+    counter.setValue(tostring(fCountCardZone(zone)))
   end
 end
 

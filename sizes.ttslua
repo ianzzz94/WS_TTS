@@ -1,7 +1,7 @@
-pB_WIDTH = 800
+pB_WIDTH = 750
 pB_HEIGHT = 240
 pB_FONTSIZE = 120
-pB_SCALE = {1.18, 1, 1}
+pB_SCALE = {1, 1, 1}
 pB1_ROTATION = {0, 180, 0}
 pB2_ROTATION = {0, 0, 0}
 pB_ROTATION = {0, 90, 0}
