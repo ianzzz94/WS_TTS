@@ -2,10 +2,21 @@ pB_NewGame = {
   click_function = 'fBC_StartOfGame',
   label = 'New Game',
   position = {9.5, 0, 0},
-  rotation = pB_ROTATION,
+  rotation = pB3_ROTATION,
   scale = pB_SCALE,
   width = pB_WIDTH,
   height = pB_HEIGHT,
   font_size = pB_FONTSIZE,
   tooltip = toolTipNewGame,
+}
+pB_HideButtons = {
+  click_function = 'fBC_HideButtons',
+  label = 'Hide Buttons',
+  position = { - 9.5, 0, 0},
+  rotation = pB4_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  tooltip = "For those who dislike Phases",
 }

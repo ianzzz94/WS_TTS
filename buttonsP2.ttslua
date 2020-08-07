@@ -637,3 +637,147 @@ pB2_ClimaxToWR = {
   color = WRRED,
   tooltip = 'Put the Climax into the Waiting Room',
 }
+
+--Minimal Mode Buttons
+
+pB2_MinimalFlip = {
+  click_function = 'fBC2_MinimalReveal',
+  label = 'Flip Top Card',
+  position = POS2_BUT5,
+  rotation = pB1_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  tooltip = 'Put the Trigger into the Resolution Zone',
+}
+pB2_MinimalStock = {
+  click_function = 'fBC2_Reveal2Stock',
+  label = 'To Stock',
+  position = POS2_BUT6,
+  rotation = pB1_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  color = MAGENTA,
+  tooltip = 'Put the Trigger from the Resolution Zone into your Stock',
+}
+pB2_MinimalClock = {
+  click_function = 'fBC2_Reveal2Clock',
+  label = 'To Clock',
+  position = POS2_BUT7,
+  rotation = pB1_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  color = GREEN,
+  tooltip = 'Move the bottom card of your Resolution Zone into your Clock.',
+}
+pB2_MinimalWR = {
+  click_function = 'fBC2_All2Room',
+  label = 'To WR',
+  position = POS2_BUT8,
+  rotation = pB1_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  color = WRRED,
+  tooltip = 'Put all cards from the Resolution Zone into your Waiting Room.',
+}
+pB2_MinimalLook = {
+  click_function = 'fBC2_MinimalLook',
+  label = 'Look at Top',
+  position = POS2_DECKBUT2,
+  rotation = pB1_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  tooltip = 'Move the top card of your Deck in the Scry Zone.',
+}
+pB2_MinimalLook2Top = {
+  click_function = 'fBC2_Look2Top',
+  label = 'To Top',
+  position = POS2_DECKBUT3,
+  rotation = pB1_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  color = BLUE,
+  tooltip = 'Move a card from the Scry Zone to the top of your Deck.',
+}
+pB2_MinimalLook2DeckD = {
+  click_function = 'fBC2_Look2DeckD',
+  label = 'To Bottom',
+  position = POS2_DECKBUT4,
+  rotation = pB1_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  color = BLUE,
+  tooltip = 'Move a card from the Scry Zone to the bottom of your Deck.',
+}
+pB2_MinimalLook2Room = {
+  click_function = 'fBC2_All2Room',
+  label = 'To WR',
+  position = POS2_DECKBUT5,
+  rotation = pB1_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  color = WRRED,
+  tooltip = 'Move all cards from the Resolution Zone and the Scry Zone into your Waiting Room.',
+}
+pB2_MinimalStandAll = {
+  click_function = 'fBC2_MinimalStandAll',
+  label = 'Stand All',
+  position = POS2_BUT1,
+  rotation = pB1_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  tooltip = 'Stand all of your characters on the Stage.',
+}
+pB2_MinimalTopToStock = {
+  click_function = 'fBC2_BlindStock',
+  label = 'Top to Stock',
+  position = POS2_BUT2,
+  rotation = pB1_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  color = MAGENTA,
+  tooltip = 'Put the top card of your deck into your stock, without seeing it.',
+}
+pB2_MinimalTopToClock = {
+  click_function = 'fBC2_TopToClock',
+  label = 'Top to Clock',
+  position = POS2_BUT3,
+  rotation = pB1_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  color = GREEN,
+  tooltip = 'Move the top card of your deck into your Clock.',
+}
+pB2_MinimalTopToWR = {
+  click_function = 'fBC2_MillTop',
+  label = 'Top to WR',
+  position = POS2_BUT4,
+  rotation = pB1_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  color = WRRED,
+  tooltip = 'Put the top card of your deck into the Waiting Room.',
+}

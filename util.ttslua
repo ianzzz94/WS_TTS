@@ -10,6 +10,15 @@ function fBC1_Reveal()
   fBC1_ShowRevealButtons()
 end
 
+function fBC1_MinimalReveal()
+  local zone = getObjectFromGUID(ID1_ZONE_CHECK)
+  local cnt = fCountCardZone(zone)
+  if cnt >= 0 and cnt < 8 then
+    fMoveCard(ID1_ZONE_DECK, {1.4 + 1.2 * cnt, 3, 0}, ROT1_CHECK, true, false, true)
+  else
+    fMoveCard(ID1_ZONE_DECK, {1.4 + 7 * 1.2, 3, 0}, ROT1_CHECK, true, false, true)
+  end
+end
 
 function fBC1_Reveal2Stock()
 
@@ -89,6 +98,10 @@ end
 function fBC1_Look()
   fMoveCard(ID1_ZONE_DECK, POS1_HAND2, ROT1_HAND2, true, false, true)
   fBC1_ShowLookButtons()
+end
+
+function fBC1_MinimalLook()
+  fMoveCard(ID1_ZONE_DECK, POS1_HAND2, ROT1_HAND2, true, false, true)
 end
 
 
@@ -222,6 +235,17 @@ function fBC2_Reveal()
 end
 
 
+function fBC2_MinimalReveal()
+  local zone = getObjectFromGUID(ID2_ZONE_CHECK)
+  local cnt = fCountCardZone(zone)
+  if cnt >= 0 and cnt < 8 then
+    fMoveCard(ID2_ZONE_DECK, { - 1.9 - 1.2 * cnt, 3, 0}, ROT2_CHECK, true, false, true)
+  else
+    fMoveCard(ID2_ZONE_DECK, { - 1.9 - 1.2 * 7, 3, 0}, ROT2_CHECK, true, false, true)
+  end
+end
+
+
 function fBC2_Reveal2Stock()
 
 
@@ -300,8 +324,13 @@ end
 
 
 function fBC2_Look()
-  fMoveCard(ID2_ZONE_DECK, POS2_HAND2, ROT2_HAND2, true, true, true)
+  fMoveCard(ID2_ZONE_DECK, POS2_HAND2, ROT2_HAND2, true, false, true)
   fBC2_ShowLookButtons()
+end
+
+
+function fBC2_MinimalLook()
+  fMoveCard(ID2_ZONE_DECK, POS2_HAND2, ROT2_HAND2, true, false, true)
 end
 
 
@@ -921,6 +950,13 @@ function fBC_StartOfGame()
   CCC.createButton(pB2_Skip)
 end
 
+function fBC_HideButtons()
+  CCC = getObjectFromGUID(ID_CENTER)
+  fBC_SetTurnCounter(" ")
+  fBC_RemoveButtons()
+  fBC_ShowMinimal()
+end
+
 
 -- Player 2 Phase Functions
 function fBC2_Mulligan()
@@ -952,6 +988,29 @@ function fBC2_StandAll()
     end
   end
   fBC_NextPhase()
+end
+
+
+function fBC2_MinimalStandAll()
+  local frontRow = getObjectFromGUID(ID2_ZONE_FRONTROW)
+  local frontRowObjects = frontRow.getObjects()
+  local backRow = getObjectFromGUID(ID2_ZONE_BACKROW)
+  local backRowObjects = backRow.getObjects()
+  for i = #frontRowObjects, 1, - 1 do
+    if (frontRowObjects[i].tag == 'Card' or frontRowObjects[i].tag == 'Deck') then
+      if (not isFaceDown(frontRowObjects[i])) then
+        frontRowObjects[i].setRotation(pB2_ROTATION)
+      end
+    end
+  end
+  for i = #backRowObjects, 1, - 1 do
+
+    if (backRowObjects[i].tag == 'Card' or backRowObjects[i].tag == 'Deck') then
+      if (not isFaceDown(backRowObjects[i])) then
+        backRowObjects[i].setRotation(pB2_ROTATION)
+      end
+    end
+  end
 end
 
 
@@ -1068,6 +1127,28 @@ function fBC1_StandAll()
     end
   end
   fBC_NextPhase()
+end
+
+
+function fBC1_MinimalStandAll()
+  local frontRow = getObjectFromGUID(ID1_ZONE_FRONTROW)
+  local frontRowObjects = frontRow.getObjects()
+  local backRow = getObjectFromGUID(ID1_ZONE_BACKROW)
+  local backRowObjects = backRow.getObjects()
+  for i = #frontRowObjects, 1, - 1 do
+    if (not isFaceDown(frontRowObjects[i])) then
+      if (frontRowObjects[i].tag == 'Card' or frontRowObjects[i].tag == 'Deck') then
+        frontRowObjects[i].setRotation(pB1_ROTATION)
+      end
+    end
+  end
+  for i = #backRowObjects, 1, - 1 do
+    if (not isFaceDown(backRowObjects[i])) then
+      if (backRowObjects[i].tag == 'Card' or backRowObjects[i].tag == 'Deck') then
+        backRowObjects[i].setRotation(pB1_ROTATION)
+      end
+    end
+  end
 end
 
 
@@ -1333,9 +1414,51 @@ function fBC2_ShowSteps(currentPhase)
 end
 
 
+function fBC_ShowMinimal()
+  CCC = getObjectFromGUID(ID_CENTER)
+  CCC.createButton(pB_NewGame)
+  CCC.createButton(pB1_Stock)
+  CCC.createButton(pB2_Stock)
+  CCC.createButton(pB1_Refresh)
+  CCC.createButton(pB2_Refresh)
+  CCC.createButton(pB1_LevelUp)
+  CCC.createButton(pB2_LevelUp)
+  CCC.createButton(pB1_MinimalFlip)
+  CCC.createButton(pB2_MinimalFlip)
+  CCC.createButton(pB1_MinimalStock)
+  CCC.createButton(pB1_BotStock)
+  CCC.createButton(pB1_SortStock)
+  CCC.createButton(pB2_MinimalStock)
+  CCC.createButton(pB2_BotStock)
+  CCC.createButton(pB2_SortStock)
+  CCC.createButton(pB1_MinimalClock)
+  CCC.createButton(pB2_MinimalClock)
+  CCC.createButton(pB1_MinimalWR)
+  CCC.createButton(pB2_MinimalWR)
+  CCC.createButton(pB1_MinimalLook)
+  CCC.createButton(pB1_MinimalLook2Top)
+  CCC.createButton(pB1_MinimalLook2DeckD)
+  CCC.createButton(pB1_MinimalLook2Room)
+  CCC.createButton(pB2_MinimalLook)
+  CCC.createButton(pB2_MinimalLook2Top)
+  CCC.createButton(pB2_MinimalLook2DeckD)
+  CCC.createButton(pB2_MinimalLook2Room)
+  CCC.createButton(pB1_MinimalStandAll)
+  CCC.createButton(pB1_MinimalTopToStock)
+  CCC.createButton(pB1_MinimalTopToClock)
+  CCC.createButton(pB1_MinimalTopToWR)
+  CCC.createButton(pB2_MinimalStandAll)
+  CCC.createButton(pB2_MinimalTopToStock)
+  CCC.createButton(pB2_MinimalTopToClock)
+  CCC.createButton(pB2_MinimalTopToWR)
+
+end
+
+
 function fBC_ShowStandard()
   CCC = getObjectFromGUID(ID_CENTER)
   CCC.createButton(pB_NewGame)
+  CCC.createButton(pB_HideButtons)
   CCC.createButton(pB1_Stock)
   CCC.createButton(pB1_BotStock)
   CCC.createButton(pB1_SortStock)

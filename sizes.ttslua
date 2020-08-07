@@ -4,4 +4,5 @@ pB_FONTSIZE = 120
 pB_SCALE = {1, 1, 1}
 pB1_ROTATION = {0, 180, 0}
 pB2_ROTATION = {0, 0, 0}
-pB_ROTATION = {0, 90, 0}
+pB3_ROTATION = {0, 90, 0}
+pB4_ROTATION = {0, 270, 0}
