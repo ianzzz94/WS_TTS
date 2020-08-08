@@ -24,6 +24,72 @@ function onObjectLeaveScriptingZone(zone, leave_object)
   fCountCardEvent(zone, leave_object, 0)
 end
 
+function onObjectDestroy( obj )
+  fCountCardEvent(getObjectFromGUID(ID1_ZONE_DECK), obj, 0)
+  fCountCardEvent(getObjectFromGUID(ID2_ZONE_DECK), obj, 0)
+  fCountCardEvent(getObjectFromGUID(ID1_ZONE_ROOM1), obj, 0)
+  fCountCardEvent(getObjectFromGUID(ID1_ZONE_ROOM2), obj, 0)
+  fCountCardEvent(getObjectFromGUID(ID2_ZONE_ROOM1), obj, 0)
+  fCountCardEvent(getObjectFromGUID(ID2_ZONE_ROOM2), obj, 0)
+end
+
+function onObjectSearchEnd( obj, player_color)
+  fCountCardEvent(getObjectFromGUID(ID1_ZONE_DECK), obj, 0)
+  fCountCardEvent(getObjectFromGUID(ID2_ZONE_DECK), obj, 0)
+  fCountCardEvent(getObjectFromGUID(ID1_ZONE_ROOM1), obj, 0)
+  fCountCardEvent(getObjectFromGUID(ID1_ZONE_ROOM2), obj, 0)
+  fCountCardEvent(getObjectFromGUID(ID2_ZONE_ROOM1), obj, 0)
+  fCountCardEvent(getObjectFromGUID(ID2_ZONE_ROOM2), obj, 0)
+end
+
+function onScriptingButtonDown(index, color)
+  if color == "White" then
+    if index == 5 then
+      fBC1_MinimalReveal()
+    elseif index == 4 then
+      fBC1_Reveal2Stock()
+    elseif index == 2 then
+      fBC1_Reveal2Clock()
+    elseif index == 10 then
+      fBC1_All2Room()
+    elseif index == 6 then
+      fBC1_MinimalLook()
+    elseif index == 9 then
+      fBC1_Look2Top()
+    elseif index == 3 then
+      fBC1_Look2DeckD()
+    elseif index == 7 then
+      fBC1_BotStock()
+    elseif index == 1 then
+      fBC1_Stock()
+    elseif index == 8 then
+      fBC1_Refresh()
+    end
+  elseif color == "Red" then
+    if index == 5 then
+      fBC2_MinimalReveal()
+    elseif index == 4 then
+      fBC2_Reveal2Stock()
+    elseif index == 2 then
+      fBC2_Reveal2Clock()
+    elseif index == 10 then
+      fBC2_All2Room()
+    elseif index == 6 then
+      fBC2_MinimalLook()
+    elseif index == 9 then
+      fBC2_Look2Top()
+    elseif index == 3 then
+      fBC2_Look2DeckD()
+    elseif index == 7 then
+      fBC2_BotStock()
+    elseif index == 1 then
+      fBC2_Stock()
+    elseif index == 8 then
+      fBC2_Refresh()
+    end
+  end
+end
+
 function onLoad()
   fBC_StartOfGame()
 end
