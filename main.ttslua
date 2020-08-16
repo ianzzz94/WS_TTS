@@ -14,32 +14,21 @@ CURRENT_PHASE = "START"
 STARTING_COLOR = RED
 TURNCOUNTER = 0
 
-function onObjectEnterScriptingZone(zone, enter_object)
-  fCountCardEvent(zone, enter_object, 1)
-  -- print(zone.getGUID())
-  -- print(enter_object.getRotation())
-end
+function onUpdate()
+  fCountCardEvent(getObjectFromGUID(ID1_ZONE_DECK))
+  fCountCardEvent(getObjectFromGUID(ID2_ZONE_DECK))
+  fCountCardEvent(getObjectFromGUID(ID1_ZONE_ROOM1))
+  fCountCardEvent(getObjectFromGUID(ID1_ZONE_ROOM2))
+  fCountCardEvent(getObjectFromGUID(ID2_ZONE_ROOM1))
+  fCountCardEvent(getObjectFromGUID(ID2_ZONE_ROOM2))
+  fCountCardEvent(getObjectFromGUID(ID1_ZONE_STOCK))
+  fCountCardEvent(getObjectFromGUID(ID2_ZONE_STOCK))
+  fCountCardEvent(getObjectFromGUID(ID1_ZONE_MEMORY))
+  fCountCardEvent(getObjectFromGUID(ID2_ZONE_MEMORY))
+  fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM)
+  fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM)
 
-function onObjectLeaveScriptingZone(zone, leave_object)
-  fCountCardEvent(zone, leave_object, 0)
-end
 
-function onObjectDestroy( obj )
-  fCountCardEvent(getObjectFromGUID(ID1_ZONE_DECK), obj, 0)
-  fCountCardEvent(getObjectFromGUID(ID2_ZONE_DECK), obj, 0)
-  fCountCardEvent(getObjectFromGUID(ID1_ZONE_ROOM1), obj, 0)
-  fCountCardEvent(getObjectFromGUID(ID1_ZONE_ROOM2), obj, 0)
-  fCountCardEvent(getObjectFromGUID(ID2_ZONE_ROOM1), obj, 0)
-  fCountCardEvent(getObjectFromGUID(ID2_ZONE_ROOM2), obj, 0)
-end
-
-function onObjectSearchEnd( obj, player_color)
-  fCountCardEvent(getObjectFromGUID(ID1_ZONE_DECK), obj, 0)
-  fCountCardEvent(getObjectFromGUID(ID2_ZONE_DECK), obj, 0)
-  fCountCardEvent(getObjectFromGUID(ID1_ZONE_ROOM1), obj, 0)
-  fCountCardEvent(getObjectFromGUID(ID1_ZONE_ROOM2), obj, 0)
-  fCountCardEvent(getObjectFromGUID(ID2_ZONE_ROOM1), obj, 0)
-  fCountCardEvent(getObjectFromGUID(ID2_ZONE_ROOM2), obj, 0)
 end
 
 function onScriptingButtonDown(index, color)

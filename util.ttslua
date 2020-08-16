@@ -148,10 +148,8 @@ function fBC1_Stock()
     obj.setPosition(POS1_ROOM)
     obj.setRotation(ROT1_ROOM)
   end
-  fCountCardEvent(getObjectFromGUID(ID1_ZONE_STOCK), enter_object, 1)
+  -- fCountCardEvent(getObjectFromGUID(ID1_ZONE_STOCK), enter_object, 0)
   -- fMoveCard(ID1_ZONE_STOCK, POS1_ROOM, ROT1_ROOM, true, true, true)
-  Wait.time(function() fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM) end, 0.5)
-  Wait.time(function() fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM) end, 0.5)
 end
 
 
@@ -170,10 +168,8 @@ function fBC1_BotStock()
     obj.setPosition(POS1_ROOM)
     obj.setRotation(ROT1_ROOM)
   end
-  fCountCardEvent(getObjectFromGUID(ID1_ZONE_STOCK), enter_object, 1)
+  -- fCountCardEvent(getObjectFromGUID(ID1_ZONE_STOCK), enter_object, 0)
   Wait.time(function() fSortStock(ID1_ZONE_STOCK, 1) end, 0.1)
-  Wait.time(function() fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM) end, 0.5)
-  Wait.time(function() fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM) end, 0.5)
 end
 
 
@@ -390,10 +386,8 @@ function fBC2_Stock()
     obj.setPosition(POS2_ROOM)
     obj.setRotation(ROT2_ROOM)
   end
-  fCountCardEvent(getObjectFromGUID(ID2_ZONE_STOCK), enter_object, 1)
+  -- fCountCardEvent(getObjectFromGUID(ID2_ZONE_STOCK), enter_object, 0)
   -- fMoveCard(ID1_ZONE_STOCK, POS1_ROOM, ROT1_ROOM, true, true, true)
-  Wait.time(function() fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM) end, 0.5)
-  Wait.time(function() fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM) end, 0.5)
 end
 
 
@@ -412,10 +406,8 @@ function fBC2_BotStock()
     obj.setPosition(POS2_ROOM)
     obj.setRotation(ROT2_ROOM)
   end
-  fCountCardEvent(getObjectFromGUID(ID2_ZONE_STOCK), enter_object, 1)
+  -- fCountCardEvent(getObjectFromGUID(ID2_ZONE_STOCK), enter_object, 0)
   Wait.time(function() fSortStock(ID2_ZONE_STOCK, 2) end, 0.1)
-  Wait.time(function() fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM) end, 0.5)
-  Wait.time(function() fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM) end, 0.5)
 end
 
 
@@ -499,17 +491,7 @@ function fMoveCard(id_zone, pos, rot, istop, issmooth, issingle, splitcxes)
       end
     end
   end
-  fCountCardEvent(zone, enter_object, 1)
-  if splitcxes then
-    -- print("split")
-    if issmooth then
-      Wait.time(function() fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM) end, 0.5)
-      Wait.time(function() fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM) end, 0.5)
-    else
-      Wait.time(function() fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM) end, 0.1)
-      Wait.time(function() fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM) end, 0.1)
-    end
-  end
+  -- fCountCardEvent(zone, enter_object, 0)
 end
 
 function fGetBottomResolution(id_zone, player)
@@ -748,7 +730,7 @@ function fCountCardObject(obj)
   end
 
   if obj.tag == 'Deck' then
-    cnt = #obj.getObjects()
+    cnt = obj.getQuantity()
   elseif obj.tag == 'Card' then
     cnt = 1
   end
@@ -765,15 +747,12 @@ function fCountCardZone(zone)
   return cnt
 end
 
-function fCountCardEvent(zone, obj, op)
-  --if obj.tag == 'Deck' or obj.tag == 'Card' then
-  local cnt = fCountCardZone(zone) + op * fCountCardObject(obj)
+function fCountCardEvent(zone)
+  cardsZone = fCountCardZone(zone)
+  local cnt = cardsZone
   if zone.getGUID() == ID1_ZONE_DECK then
     local text = getObjectFromGUID(ID1_TEXT_DECK)
     text.TextTool.setValue(cnt..'')
-    -- elseif zone.getGUID() == ID1_ZONE_HAND then
-    --   local text = getObjectFromGUID(ID1_TEXT_HAND)
-    --   text.TextTool.setValue(cnt..'')
   elseif zone.getGUID() == ID1_ZONE_STOCK then
     local text = getObjectFromGUID(ID1_TEXT_STOCK)
     text.TextTool.setValue(cnt..'')
@@ -783,20 +762,13 @@ function fCountCardEvent(zone, obj, op)
   elseif zone.getGUID() == ID1_ZONE_ROOM2 then
     local text = getObjectFromGUID(ID1_TEXT_ROOM2)
     text.TextTool.setValue(cnt..'')
-    -- elseif zone.getGUID() == ID1_ZONE_LEVEL then
-    --   local cnt1 = fCountCardZone(getObjectFromGUID(ID1_ZONE_CLOCK))
-    --   local text = getObjectFromGUID(ID1_TEXT_LEVEL)
-    --   text.TextTool.setValue(cnt..'-'..cnt1)
-    -- elseif zone.getGUID() == ID1_ZONE_CLOCK then
-    --   local cnt1 = fCountCardZone(getObjectFromGUID(ID1_ZONE_LEVEL))
-    --   local text = getObjectFromGUID(ID1_TEXT_LEVEL)
-    --   text.TextTool.setValue(cnt1..'-'..cnt)
+  elseif zone.getGUID() == ID1_ZONE_MEMORY then
+    -- print(ID1_TEXT_MEMORY)
+    local text = getObjectFromGUID(ID1_TEXT_MEMORY)
+    text.TextTool.setValue(cnt..'')
   elseif zone.getGUID() == ID2_ZONE_DECK then
     local text = getObjectFromGUID(ID2_TEXT_DECK)
     text.TextTool.setValue(cnt..'')
-    -- elseif zone.getGUID() == ID2_ZONE_HAND then
-    --   local text = getObjectFromGUID(ID2_TEXT_HAND)
-    --   text.TextTool.setValue(cnt..'')
   elseif zone.getGUID() == ID2_ZONE_STOCK then
     local text = getObjectFromGUID(ID2_TEXT_STOCK)
     text.TextTool.setValue(cnt..'')
@@ -806,14 +778,9 @@ function fCountCardEvent(zone, obj, op)
   elseif zone.getGUID() == ID2_ZONE_ROOM2 then
     local text = getObjectFromGUID(ID2_TEXT_ROOM2)
     text.TextTool.setValue(cnt..'')
-    -- elseif zone.getGUID() == ID2_ZONE_LEVEL then
-    --   local cnt1 = fCountCardZone(getObjectFromGUID(ID2_ZONE_CLOCK))
-    --   local text = getObjectFromGUID(ID2_TEXT_LEVEL)
-    --   text.TextTool.setValue(cnt..'-'..cnt1)
-    -- elseif zone.getGUID() == ID2_ZONE_CLOCK then
-    --   local cnt1 = fCountCardZone(getObjectFromGUID(ID2_ZONE_LEVEL))
-    --   local text = getObjectFromGUID(ID2_TEXT_LEVEL)
-    --   text.TextTool.setValue(cnt1..'-'..cnt)
+  elseif zone.getGUID() == ID2_ZONE_MEMORY then
+    local text = getObjectFromGUID(ID2_TEXT_MEMORY)
+    text.TextTool.setValue(cnt..'')
   end
   --end
 end
