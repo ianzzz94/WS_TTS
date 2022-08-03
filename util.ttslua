@@ -491,6 +491,8 @@ function fMoveCard(id_zone, pos, rot, istop, issmooth, issingle, splitcxes)
       end
     end
   end
+  fSplitCxes(ID1_ZONE_ROOM1, POS1_ROOM2, ROT1_ROOM)
+  fSplitCxes(ID2_ZONE_ROOM1, POS2_ROOM2, ROT2_ROOM)
   -- fCountCardEvent(zone, enter_object, 0)
 end
 
@@ -915,6 +917,10 @@ function fBC_StartOfGame()
   CCC.createButton(pB2_Second)
   CCC.createButton(pB1_Skip)
   CCC.createButton(pB2_Skip)
+  CCC.createButton(pB_HideButtons)
+  CCC.createButton(pB_ImportDeckLog)
+  CCC.createButton(pB_ImportEncoreDecks)
+  CCC.createInput(iP_DecklogLink)
 end
 
 function fBC_HideButtons()
@@ -1591,4 +1597,105 @@ function fBC_DeckCheck()
   end
   return deckCheckPassed
 
+end
+
+function fBC_ImportDeckLog()
+  print(INPUTTEXT)
+  local url = "https://decklog-en.bushiroad.com/system/app/api/view/ANK0"
+  local headers = {referer = "https://decklog-en.bushiroad.com/", }
+  local body = "Test"
+  WebRequest.custom(url, "GET", true, body, headers, function(request)
+    if request.is_error then
+    log(request.error)
+  else
+    broadcastToAll(request.text)
+    responseData = JSON.decode(request.text)
+    print(responseData)
+    print(responseData["list"][1])
+    print(responseData["list"][1]["img"])
+    for i = 1, #responseData["list"] do
+      for j = 1, responseData["list"][i]["num"] do
+        if responseData["list"][i]["card_kind"] == 4 then
+          local object = spawnObject({
+            type = "CardCustom",
+            sound = false,
+            position = POS1_DECK,
+            rotation = {180, 0, 0},
+            scale = {0.5, 1, 1},
+            callback_function = function(spawned_object)
+              log(spawned_object.getBounds())
+            end
+          })
+          object.setCustomObject({
+            type = 0,
+            face = "https://en.ws-tcg.com/wp/wp-content/images/cardimages/" .. responseData["list"][i]["img"],
+            back = "https://i0.wp.com/www.iantcg.com/wp-content/uploads/2020/10/ws_cardback_600px-1.png?resize=300%2C419&ssl=1",
+            sideways = false
+          })
+          object.setDescription("Type: CX")
+        else
+          local object = spawnObject({
+            type = "CardCustom",
+            sound = false,
+            position = POS1_DECK,
+            rotation = {180, 0, 0},
+            callback_function = function(spawned_object)
+              log(spawned_object.getBounds())
+            end
+          })
+          object.setCustomObject({
+            type = 0,
+            face = "https://en.ws-tcg.com/wp/wp-content/images/cardimages/" .. responseData["list"][i]["img"],
+            back = "https://i0.wp.com/www.iantcg.com/wp-content/uploads/2020/10/ws_cardback_600px-1.png?resize=300%2C419&ssl=1"
+          })
+        end
+      end
+    end
+  end
+end)
+
+
+end
+
+
+function fBC_ImportEncore()
+print(INPUTTEXT)
+local url = "https://www.encoredecks.com/api/deck/BSR7mI0Hb"
+local body = "Test"
+WebRequest.get(url, function(request)
+  if request.is_error then
+  log(request.error)
+else
+  broadcastToAll(request.text)
+  responseData = JSON.decode(request.text)
+  -- print(responseData)
+  print(responseData["cards"][1]["imagepath"])
+  for i = 1, #responseData["cards"] do
+    print(responseData["cards"][i]["imagepath"])
+    local object = spawnObject({
+      type = "CardCustom",
+      sound = true,
+      position = POS1_DECK,
+      rotation = {180, 0, 0},
+      callback_function = function(spawned_object)
+        log(spawned_object.getBounds())
+      end
+    })
+    object.setCustomObject({
+      type = 0,
+      face = "https://www.encoredecks.com/images/" .. responseData["cards"][i]["imagepath"],
+      back = "https://i0.wp.com/www.iantcg.com/wp-content/uploads/2020/10/ws_cardback_600px-1.png?resize=300%2C419&ssl=1"
+    })
+  end
+end
+end)
+
+end
+
+
+function iPC_DeckLogInputFunc(obj, color, input, stillEditing)
+if not stillEditing then
+INPUTTEXT = input
+print(INPUTTEXT)
+end
 end

@@ -11,7 +11,7 @@ pB_NewGame = {
 }
 pB_HideButtons = {
   click_function = 'fBC_HideButtons',
-  label = 'Hide Buttons',
+  label = 'No Phases',
   position = { - 9.5, 0, 0},
   rotation = pB4_ROTATION,
   scale = pB_SCALE,
@@ -19,4 +19,41 @@ pB_HideButtons = {
   height = pB_HEIGHT,
   font_size = pB_FONTSIZE,
   tooltip = "For those who dislike Phases",
+}
+
+pB_ImportDeckLog = {
+  click_function = 'fBC_ImportDeckLog',
+  label = 'Import Decklog',
+  position = { 3.5, 0, 10},
+  rotation = pB2_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH + 100,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  tooltip = "Click to import Deck Log",
+}
+
+pB_ImportEncoreDecks = {
+  click_function = 'fBC_ImportEncore',
+  label = 'Import Encore Decks',
+  position = { 3.5, 0, 9.5},
+  rotation = pB2_ROTATION,
+  scale = pB_SCALE,
+  width = pB_WIDTH + 100,
+  height = pB_HEIGHT,
+  font_size = pB_FONTSIZE,
+  tooltip = "Click to import Encore Decks",
+}
+
+iP_DecklogLink = {
+  input_function = "iPC_DeckLogInputFunc",
+  function_owner = self,
+  label = "https://decklog-en.bushiroad.com/view/ABCD",
+  rotation = pB2_ROTATION,
+  alignment = 3,
+  position = { 0, 0, 10},
+  width = 2200,
+  height = 150,
+  font_size = 100,
+  validation = 1,
 }
